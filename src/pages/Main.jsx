@@ -5,6 +5,8 @@ import MainContent from '../components/MainContent/mainContent'
 import Search from '../components/Search/search';
 import MyPage from '../components/MyPage/myPage';
 import Add from '../components/Add/add';
+import Login from '../components/Login/login';
+import Register from '../components/Register/register';
 
 const Main = () => {
     return (
@@ -24,6 +26,8 @@ const Main = () => {
                     <Route path="/search" element={<Search />} />
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/add" element={<Add />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                 </Routes>
             </Contents>
         </Back>

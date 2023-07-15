@@ -9,8 +9,8 @@ const Header = () => {
             <Title><Link to='/'>home</Link></Title>
             <InputDiv> search : <Input /></InputDiv>
             <HeaderOption>
-                <div>로그인</div>
-                <Link to='/mypage'>마이페이지</Link>
+                <Link to = '/login'>로그인/회원가입</Link>
+                <Link to= '/mypage'>마이페이지</Link>
             </HeaderOption>
 
         </HeaderDiv>

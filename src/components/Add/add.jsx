@@ -12,6 +12,9 @@ const Add = () => {
                 <Select>
                     <option value="발라드">발라드</option>
                     <option value="발라드">힙합</option>
+                    <option value="발라드">락</option>
+                    <option value="발라드">K-pop</option>
+                    
                 </Select>
                 <button>올리기</button>
             </Header>
@@ -25,7 +28,7 @@ const Add = () => {
             </div>
 
             <div>
-                <textarea placeholder='제목'></textarea>
+                <textarea placeholder='내용'></textarea>
             </div>
             </Wrap>
         </Div>
