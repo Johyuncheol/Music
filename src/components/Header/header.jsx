@@ -1,13 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 
 const Header = () => {
     return (
-            <HeaderDiv>
-                <Title>home</Title>
-                <InputDiv> search : <Input /></InputDiv>
-            </HeaderDiv>
+        <HeaderDiv>
+            <Title><Link to='/'>home</Link></Title>
+            <InputDiv> search : <Input /></InputDiv>
+            <HeaderOption>
+                <div>로그인</div>
+                <Link to='/mypage'>마이페이지</Link>
+            </HeaderOption>
+
+        </HeaderDiv>
     );
 };
 
@@ -58,5 +64,13 @@ background-color:#31343a;
  width:50%;
  max-width:200px;
 
- 
 `
+
+export const HeaderOption = styled.div`
+display:flex;
+flex-grow:0.8;
+justify-content:right;
+align-items:center;
+gap :10px;
+color:#555962;
+ `

@@ -1,23 +1,29 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import MainContent from '../components/MainContent/mainContent'
+import Search from '../components/Search/search';
+import MyPage from '../components/MyPage/myPage';
+import Add from '../components/Add/add';
 
 const Main = () => {
     return (
         <Back>
             <Side>
                 <Box>
-                    <button>로그인</button>
                     <button>전체</button>
                     <button>카테고리</button>
                     <button>카테고리</button>
+                    <Link to='/add'>글쓰기</Link>
                 </Box>
             </Side>
 
             <Contents>
                 <Routes>
                     <Route path="/" element={<MainContent />} />
+                    <Route path="/search" element={<Search />} />
+                    <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/add" element={<Add />} />
                 </Routes>
             </Contents>
         </Back>
@@ -83,6 +89,7 @@ export const Contents = styled.div`
  border: 1px solid lightgrey;
  border-radius:10px;
  min-height:600px;
+ padding : 4px;
 `
 
 
