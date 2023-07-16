@@ -5,7 +5,7 @@ import { useQueries, useQuery } from 'react-query';
 import { useParams,Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
-const Search = () => {
+const Category = () => {
     const params = useParams();
     console.log(params.id)// 페이지 id 
 
@@ -30,7 +30,7 @@ const Search = () => {
 
                 <ContentBox>
                     <Player> {/* 조절하려면 따로 감싸줘야함 */}
-                        <ReactPlayer url={item.yUrl} controls width={'100%'} />
+                        <ReactPlayer url={item.yUrl} controls />
                     </Player>
                     
                 </ContentBox>
@@ -62,7 +62,7 @@ const Search = () => {
     );
 };
 
-export default Search;
+export default Category;
 
 export const Wrap = styled.div`
     display:flex;

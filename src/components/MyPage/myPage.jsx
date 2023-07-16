@@ -4,7 +4,6 @@ import { styled } from 'styled-components';
 
 const MyPage = () => {
     return (
-
         <Wrap>
             <Box>내가 작성한 글 </Box>
             <Box>내가 작성한 글 </Box>
@@ -13,7 +12,6 @@ const MyPage = () => {
             <Box>내가 작성한 글 </Box>
             <Box>내가 작성한 글 </Box>
         </Wrap>
-
     );
 };
 
