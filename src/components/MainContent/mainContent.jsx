@@ -2,8 +2,10 @@ import React, { useEffect,useState,useRef } from 'react';
 import { styled } from 'styled-components';
 import SlideComponent from '../Slider/slider';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const MainContent = () => {
+
     const [params, setParams] = useState({
         key: 'AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk',
         part: 'snippet',
@@ -17,23 +19,21 @@ useEffect(()=>{
          axios.get('https://www.googleapis.com/youtube/v3/videos', { params })
         .then((res)=>{
           console.log(res.data.items['0'].snippet.thumbnails.standard.url);
-          setPic(res.data.items['0'].snippet.thumbnails.maxres
-          .url)
+          setPic(res.data.items['0'].snippet.thumbnails.maxres.url)
         })
 },[])
-
-
 
     return (
         <Div>
             <Contents>
                 <Box>
                 <div>MOST</div>
-                    <Img src={pic}></Img>
+                    <Link to={`/detail`}><Img src={pic}></Img></Link>
                     <div>제목이 들어갑니다</div>
-                
                 </Box>
+
                 <hr></hr>
+                
                 <Box>
                     <div>TOP 5</div>
                     <Item>1. top</Item>
@@ -45,9 +45,6 @@ useEffect(()=>{
                 
             </Contents>
             <SlideComponent />
-
-            
-  
         </Div>
     );
 };

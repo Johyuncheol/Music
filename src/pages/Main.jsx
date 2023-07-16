@@ -2,34 +2,43 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { Link, Route, Routes } from "react-router-dom";
 import MainContent from '../components/MainContent/mainContent'
-import Search from '../components/Search/search';
+import Category from '../components/Categoty/category';
 import MyPage from '../components/MyPage/myPage';
 import Add from '../components/Add/add';
+import Detail from '../components/Detail/detail';
+import Side from '../components/Side/side';
 import Login from '../components/Login/login';
 import Register from '../components/Register/register';
+import NonExistent from './NonExistent';
+
 
 const Main = () => {
     return (
         <Back>
-            <Side>
-                <Box>
-                    <button>전체</button>
-                    <button>카테고리</button>
-                    <button>카테고리</button>
-                    <Link to='/add'>글쓰기</Link>
-                </Box>
-            </Side>
-
-            <Contents>
+            <Side />
+            <ContentSection>
                 <Routes>
                     <Route path="/" element={<MainContent />} />
-                    <Route path="/search" element={<Search />} />
+
+                    {/*  검색 및 카테고리별 출력은 형태가 같다 ..*/}
+                    <Route path="/search/:id" element={<Category />} />
+                    <Route path="/posts/:id" element={<Category />} />
+  
+                    <Route path="/detail/:id" element={<Detail />} />
                     <Route path="/mypage" element={<MyPage />} />
-                    <Route path="/add" element={<Add />} />
+
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+
+                    <Route path="/add" element={<Add />} />
+
+                    <Route path="/all" element={<Add />} />
+
+                    <Route path="*" element={<NonExistent />} />
+
+
                 </Routes>
-            </Contents>
+            </ContentSection>
         </Back>
     );
 };
@@ -44,51 +53,9 @@ export const Back = styled.div`
     padding:3%;
  
 `
-export const Header = styled.div`
-display:flex;
-gap : 10%;
-
-`
-
-export const Box = styled.div`
-display:flex;
-flex-direction:column;
-
-top:10%;
-position:sticky;
-
-padding:10%;
-gap : 20px;
-
-border: 1px solid lightgrey;
-max-width:150px;
-border-radius:10px;
-
-`
-
-export const Title = styled.div`
-    color:lightgray;
-    font-size: 40px;
-`
-export const Div = styled.div`
 
 
-
-`
-
-export const Side = styled.div`
-top:10%;
-position:sticky;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
-max-width: 100px;
-
-`
-
-export const Contents = styled.div`
+export const ContentSection = styled.div`
     display:flex;
  border: 1px solid lightgrey;
  border-radius:10px;
@@ -97,3 +64,7 @@ export const Contents = styled.div`
 `
 
 
+export const StyledLink = styled(Link)`
+    text-decoration:none;
+    color:aliceblue;
+ `

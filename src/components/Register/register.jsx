@@ -10,27 +10,42 @@ const Register = () => {
   //const history = useHistory();
 
   //const handleLogin = () => {
-    // 로그인 로직
+
+  // 로그인 로직
+
   //};
 
   const handleRegister = () => {
     // 회원가입 로직
     // 회원가입 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지).
-    
+
     //history.push('/mainpage'); // 다음 경로로 이동
   };
 
   return (
     <Wrap>
-        <h1>회원가입</h1>
+      <h1>회원가입</h1>
+      
       <Box>
         <label>Email</label>
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='이메일을 등록해주세요.'/>
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='이메일을 등록해주세요.'
+        />
       </Box>
+
       <Box>
         <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='비밀번호를 등록해주세요.'/>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder='비밀번호를 등록해주세요.'
+        />
       </Box>
+
       <ButtonGroup>
         {/* <Button onClick={handleLogin}>로그인</Button> */}
         {/* <Button onClick={handleRegister}>회원가입</Button> */}

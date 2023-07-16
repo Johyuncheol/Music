@@ -4,13 +4,26 @@ import { styled } from 'styled-components';
 
 
 const Header = () => {
+    
     return (
         <HeaderDiv>
-            <Title><Link to='/'>home</Link></Title>
-            <InputDiv> search : <Input /></InputDiv>
+            <Title>
+                <StyledLink to='/'>
+                    home
+                </StyledLink>
+            </Title>
+
+            <InputDiv>
+                <span>search :</span>
+                <Input />
+            </InputDiv>
+
             <HeaderOption>
-                <Link to = '/login'>로그인/회원가입</Link>
-                <Link to= '/mypage'>마이페이지</Link>
+
+                <StyledLink to='/login'>로그인</StyledLink>
+                <StyledLink to='/mypage'>마이페이지</StyledLink>
+
+
             </HeaderOption>
 
         </HeaderDiv>
@@ -26,7 +39,7 @@ display:flex;
 align-items:center;
 gap : 10%;
 background-color:#26282d;
-padding-left:10%;
+padding-left:4%;
 padding-top:1%;
 
 `
@@ -34,7 +47,9 @@ padding-top:1%;
 
 export const Title = styled.div`
     color:lightgray;
-    font-size: 40px;
+    font-size: 50px;
+    font-family: 'Black Han Sans', sans-serif;
+
 `
 export const Div = styled.div`
 background-color:#26282d;
@@ -55,7 +70,8 @@ export const InputDiv = styled.div`
 
 display:flex;
 align-items:center;
-border-radius:10px;
+border-radius:50px;
+border: 4px solid darkred;
 height:30px;
 background-color:#31343a;
  color:#555962;
@@ -73,4 +89,13 @@ justify-content:right;
 align-items:center;
 gap :10px;
 color:#555962;
+ `
+
+export const StyledLink = styled(Link)`
+    text-decoration:none;
+    color:aliceblue;
+ 
+
+
+
  `
