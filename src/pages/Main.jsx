@@ -5,25 +5,34 @@ import MainContent from '../components/MainContent/mainContent'
 import Search from '../components/Search/search';
 import MyPage from '../components/MyPage/myPage';
 import Add from '../components/Add/add';
+import NonExistent from './NonExistent';
+import Detail from '../components/Detail/detail';
 
 const Main = () => {
     return (
         <Back>
             <Side>
                 <Box>
-                    <button>전체</button>
-                    <button>카테고리</button>
-                    <button>카테고리</button>
-                    <Link to='/add'>글쓰기</Link>
+                    <StyledLink to='/posts/all'>전체</StyledLink>
+                    <StyledLink to='/posts/ballad'>발라드</StyledLink>
+                    <StyledLink to='/posts/hiphop'>힙합</StyledLink>
+                    <StyledLink to='/add'>글쓰기</StyledLink>
                 </Box>
             </Side>
 
             <Contents>
                 <Routes>
                     <Route path="/" element={<MainContent />} />
-                    <Route path="/search" element={<Search />} />
+
+                    {/* 컴포넌트 이름 수정해놓자  여기서 검색 및 카테고리별 출력*/}
+                    <Route path="/search/:id" element={<Search />} />
+                    <Route path="/posts/:id" element={<Search />} />
+  
+                    <Route path="/detail/:id" element={<Detail />} />
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/add" element={<Add />} />
+                    <Route path="/all" element={<Add />} />
+
                 </Routes>
             </Contents>
         </Back>
@@ -93,3 +102,7 @@ export const Contents = styled.div`
 `
 
 
+export const StyledLink = styled(Link)`
+    text-decoration:none;
+    color:aliceblue;
+ `

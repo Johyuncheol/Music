@@ -4,6 +4,7 @@ import Main from "../pages/Main";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/footer";
 import Add from "../components/Add/add";
+import NonExistent from "../pages/NonExistent";
 
 const Router = () => {
     return (
@@ -12,6 +13,7 @@ const Router = () => {
             <Routes>
                 <Route path="/*" element={<Main />} />
                 <Route path="/add" element={<Add />} />
+                <Route path="*" element={<NonExistent />} />
             </Routes>
             <Footer />
         </BrowserRouter>

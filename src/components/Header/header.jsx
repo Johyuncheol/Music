@@ -6,11 +6,11 @@ import { styled } from 'styled-components';
 const Header = () => {
     return (
         <HeaderDiv>
-            <Title><Link to='/'>home</Link></Title>
+            <Title><StyledLink to='/'>home</StyledLink></Title>
             <InputDiv> search : <Input /></InputDiv>
             <HeaderOption>
-                <div>로그인</div>
-                <Link to='/mypage'>마이페이지</Link>
+                <StyledLink>로그인</StyledLink>
+                <StyledLink to='/mypage'>마이페이지</StyledLink>
             </HeaderOption>
 
         </HeaderDiv>
@@ -73,4 +73,9 @@ justify-content:right;
 align-items:center;
 gap :10px;
 color:#555962;
+ `
+
+export const StyledLink = styled(Link)`
+    text-decoration:none;
+    color:aliceblue;
  `

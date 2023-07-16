@@ -5,20 +5,11 @@ import { useQueries, useQuery } from 'react-query';
 import { useParams,Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
-const Search = () => {
+const Detail = () => {
     const params = useParams();
-    console.log(params.id)// 페이지 id 
 
-    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(params.id));
-    console.log(data);
+    const { isLoading, isError, data } = useQuery('all', () => getPosts(params.id));
 
-    if (isLoading) {
-        return <div>로딩 중...</div>
-    }
-
-    if (isError) {
-        return <div>에러가 발생하였습니다!</div>
-    }
 
     const Card = ({ item }) => {
         return (
@@ -52,7 +43,7 @@ const Search = () => {
     return (
         <Wrap>
             {
-                data?.map((item) => {
+                data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문
                     return (
                         <Card item={item} key={item.id} />
                     )
@@ -62,7 +53,8 @@ const Search = () => {
     );
 };
 
-export default Search;
+export default Detail;
+
 
 export const Wrap = styled.div`
     display:flex;
