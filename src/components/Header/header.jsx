@@ -19,8 +19,11 @@ const Header = () => {
             </InputDiv>
 
             <HeaderOption>
+
                 <StyledLink to='/login'>로그인</StyledLink>
                 <StyledLink to='/mypage'>마이페이지</StyledLink>
+
+
             </HeaderOption>
 
         </HeaderDiv>

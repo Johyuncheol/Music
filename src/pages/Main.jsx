@@ -11,6 +11,7 @@ import Login from '../components/Login/login';
 import Register from '../components/Register/register';
 import NonExistent from './NonExistent';
 
+
 const Main = () => {
     return (
         <Back>
@@ -30,9 +31,11 @@ const Main = () => {
                     <Route path="/register" element={<Register />} />
 
                     <Route path="/add" element={<Add />} />
+
                     <Route path="/all" element={<Add />} />
 
                     <Route path="*" element={<NonExistent />} />
+
 
                 </Routes>
             </ContentSection>

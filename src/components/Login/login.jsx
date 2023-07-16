@@ -13,8 +13,10 @@ const Login = () => {
   const handleLogin = () => {
     // 로그인 로직
 
+
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
     // history.push('/'); // 다음 경로로 이동
+
 
   };
 
@@ -44,6 +46,7 @@ const Login = () => {
           placeholder='비밀번호를 입력해주세요.'
         />
       </Box>
+
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
