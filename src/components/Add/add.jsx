@@ -10,11 +10,13 @@ const Add = () => {
     const [cookie] = useCookies(['User']);
 
     const checkAuth = ()=>{
+        // 이슈 로그인 -> 토큰값 있다 서버에서 응답 주면 페이지 들여보내줌 
         if(cookie.User===undefined){
             alert("로그인 해주세요")
             navigate("/")
         }
     }
+
     useEffect(()=>{
         checkAuth();
     },[cookie])

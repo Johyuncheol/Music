@@ -30,22 +30,22 @@ const Category = () => {
 
                 <ContentBox>
                     <Player> {/* 조절하려면 따로 감싸줘야함 */}
-                        <ReactPlayer url={item.yUrl} controls />
+                        <ReactPlayer url={item.yurl} controls />
                     </Player>
                     
                 </ContentBox>
-                    <Option>
+{/*                     <Option>
                         <button>좋아요 +30</button>
                         {
                             console.log(item)
                         }
                             <span>{`댓글 수 +${item.comments.length}`}</span>
                     </Option>
-
+ */}
 
 
                 <TitleBox>
-                    {item.comment}
+                    {item.content}
                 </TitleBox>
             </Box>
         );

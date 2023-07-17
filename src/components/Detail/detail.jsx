@@ -25,13 +25,13 @@ const Detail = () => {
                             <ReactPlayer url={item.yUrl} controls width={'100%'} />
                         </Player>
 
-                        <Option>
+    {/*                     <Option>
                             <OptionLeft>
                                 <button>좋아요 +30</button>
                                 <span>{`댓글 수 +${item.comments.length}`}</span>
                             </OptionLeft>
                             <button>댓글쓰기</button>
-                        </Option>
+                        </Option> */}
                     </VideoSection>
                     
                     <CommentSection>
