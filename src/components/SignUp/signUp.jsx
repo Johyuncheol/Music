@@ -1,42 +1,41 @@
 import axios from 'axios';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { Link } from "react-router-dom";
-import { useCookies } from 'react-cookie';
 
-const Login = () => {
+const Signup = () => {
   const formRef = useRef();
-  const [cookies, setCookie] = useCookies(['id']);
-  // 쿠키를 전역적으로 쓰라.
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
-  const login = (e) => {
+  // 회원 가입 함수
+  const signup = async (e) => {
     e.preventDefault();
     const { id, password } = formRef.current;
 
-    axios
-      .post('http://3.38.191.164/login', { // 로그인 요청
+    try {
+      const response = await axios.post('http://3.38.191.164/register', {
         id: id.value,
         password: password.value,
-      })
-      .then((res) => {
-        setCookie('id', res.data.token); // 쿠키에 토큰 저장
-        console.log(cookies);
-        navigate('/'); // 로그인 후 이동할 경로
-      
-      
-      })
-      .catch((error) => {
-        console.error(error);
       });
+
+      if (response.status === 201) {
+        console.log(response);
+        navigate('/'); // 회원가입 후 메인 페이지로 이동
+      
+      }
+    } catch (error) {
+      setError('서버 통신 실패');
+      console.error(error);
+      alert(error.response.data.message)
+    }
   };
 
   return (
     <Wrap>
       <Box>
-        <h1>로그인</h1>
-        <form onSubmit={login} ref={formRef}>
+        <h1>회원가입</h1>
+        <form onSubmit={signup} ref={formRef}>
           <label>사용자 이름</label>
           <input
             type="text"
@@ -52,16 +51,16 @@ const Login = () => {
             required
           />
           <ButtonGroup>
-            <Button type="submit">로그인</Button>
-            <Link to="/signup"><Button>회원가입</Button></Link>
+            <Button type="submit">회원가입 하기</Button>
           </ButtonGroup>
         </form>
+        {error && <ErrorText>{error}</ErrorText>}
       </Box>
     </Wrap>
   );
 };
 
-export default Login;
+export default Signup;
 
 const Wrap = styled.div`
   display: flex;
@@ -99,4 +98,9 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+`;
+
+const ErrorText = styled.p`
+  color: red;
+  text-align: center;
 `;
