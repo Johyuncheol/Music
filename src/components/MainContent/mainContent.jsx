@@ -4,7 +4,10 @@ import SlideComponent from '../Slider/slider';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+
 const MainContent = () => {
+
+    
 
     const [params, setParams] = useState({
         key: 'AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk',

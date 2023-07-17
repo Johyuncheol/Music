@@ -4,12 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import { useEffect } from 'react';
 
 const Login = () => {
   const formRef = useRef();
   const [cookies, setCookie] = useCookies(['id']);
   // 쿠키를 전역적으로 쓰라.
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (cookies.id) {
+      // 이미 로그인된 상태이므로 메인 페이지로 이동
+      navigate('/');
+    }
+  }, [cookies, navigate]);
+
 
   const login = (e) => {
     e.preventDefault();

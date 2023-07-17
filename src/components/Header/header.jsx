@@ -1,33 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useCookies } from 'react-cookie';
 
+
+
+// ...
 
 const Header = () => {
-    
-    return (
-        <HeaderDiv>
-            <Title>
-                <StyledLink to='/'>
-                    home
-                </StyledLink>
-            </Title>
+  const [cookies, setCookie, removeCookie] = useCookies(['id']);
 
-            <InputDiv>
-                <span>search :</span>
-                <Input />
-            </InputDiv>
+  const handleLogout = () => {
+    removeCookie('id'); // 로그아웃 시 쿠키 삭제
+  };
 
-            <HeaderOption>
+  return (
+    <HeaderDiv>
+      <Title>
+        <StyledLink to="/">home</StyledLink>
+      </Title>
 
-                <StyledLink to='/login'>로그인</StyledLink>
-                <StyledLink to='/mypage'>마이페이지</StyledLink>
+      <InputDiv>
+        <span>search :</span>
+        <Input />
+      </InputDiv>
 
-
-            </HeaderOption>
-
-        </HeaderDiv>
-    );
+      <HeaderOption>
+        {cookies.id ? (
+          <>
+            <StyledLink to="/" onClick={handleLogout}>
+              로그아웃
+            </StyledLink>
+            <StyledLink to="/mypage">마이페이지</StyledLink>
+          </>
+        ) : (
+          <StyledLink to="/login">로그인</StyledLink>
+        )}
+      </HeaderOption>
+    </HeaderDiv>
+  );
 };
 
 export default Header;
