@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { addPosts } from '../../api/posts';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 
 const Add = () => {
     const navigate = useNavigate();
+    const [cookie] = useCookies(['User']);
+
+    const checkAuth = ()=>{
+        if(cookie.User===undefined){
+            alert("로그인 해주세요")
+            navigate("/")
+        }
+    }
+    useEffect(()=>{
+        checkAuth();
+    },[cookie])
 
     const [newPost, setnewPost] = useState({//json은 noSQL이라 id 자동생성됨
         title: "",

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-
+import { useCookies } from 'react-cookie';
 
 const Header = () => {
-    
+    const [cookie, setCookie, removeCookie] = useCookies(['User']);
+    const logOut = () => {
+        console.log(cookie.User)
+        removeCookie('User');
+    }
+
     return (
         <HeaderDiv>
             <Title>
@@ -19,7 +24,15 @@ const Header = () => {
             </InputDiv>
 
             <HeaderOption>
-                <StyledLink to='/login'>로그인</StyledLink>
+                {
+                    cookie.User ===undefined
+                        ?
+                        <StyledLink to='/login'>로그인/회원가입</StyledLink>
+                        :
+                        <StyledLink onClick={logOut}>로그아웃</StyledLink>
+
+
+                }
                 <StyledLink to='/mypage'>마이페이지</StyledLink>
             </HeaderOption>
 

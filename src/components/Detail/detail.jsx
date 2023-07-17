@@ -1,13 +1,14 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { getPosts } from '../../api/posts';
-import { useQueries, useQuery } from 'react-query';
-import { useParams,Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
+import { useNavigate } from 'react-router-dom';
 
 const Detail = () => {
     const params = useParams();
-
+    const navigate = useNavigate();
     const { isLoading, isError, data } = useQuery('all', () => getPosts(params.id));
 
 
@@ -16,55 +17,95 @@ const Detail = () => {
             <Box>
                 <TitleBox>
                     ◎ {item.title}
-                    <StyledLink to={`/detail/${item.id}`}> . . . </StyledLink>
                 </TitleBox>
 
-                <ContentBox>
-                    <Player> {/* 조절하려면 따로 감싸줘야함 */}
-                        <ReactPlayer url={item.yUrl} controls width={'100%'} />
-                    </Player>
+                <ContentSection>
+                    <VideoSection>
+                        <Player> {/* 조절하려면 따로 감싸줘야함 */}
+                            <ReactPlayer url={item.yUrl} controls width={'100%'} />
+                        </Player>
+
+                        <Option>
+                            <OptionLeft>
+                                <button>좋아요 +30</button>
+                                <span>{`댓글 수 +${item.comments.length}`}</span>
+                            </OptionLeft>
+                            <button>댓글쓰기</button>
+                        </Option>
+                    </VideoSection>
                     
-                </ContentBox>
-                    <Option>
-                        <button>좋아요</button>
-                        <span>+30</span>
-                        <button>댓글</button>
-                        <span>+30</span>
-                    </Option>
+                    <CommentSection>
+                        {
+                            item.comments?.map((c) => {
+                                return (
+                                    <CommentBox>
+                                        <StyledSpan>ID: {c.username}</StyledSpan>
+                                        <StyledSpan>{c.comment}</StyledSpan>
+                                    </CommentBox>
+                                );
 
-                <TitleBox>
-                    {item.comment}
-                </TitleBox>
+                            })
+                        }
+                    </CommentSection>
+                </ContentSection>
             </Box>
+
         );
 
     };
 
     return (
         <Wrap>
-            {
-                data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문
-                    return (
-                        <Card item={item} key={item.id} />
-                    )
-                })
-            }
+            <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
+            <Content>
+                {
+                    data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문
+                        return (
+                            <Card item={item} key={item.id} />
+                        )
+                    })
+                }
+            </Content>
         </Wrap>
+
+
     );
 };
 
 export default Detail;
 
 
+export const CommentSection = styled.div`
+    color:aliceblue;
+    width:10%;
+    min-width:190px;
+   
+`
+
+export const ContentSection = styled.div`
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    color:aliceblue;
+
+    margin-top:1%;
+
+`
+
 export const Wrap = styled.div`
     display:flex;
-    align-items:center;
 
     color:aliceblue;
     flex-direction:column;
-    padding : 5%;
     width:100%;
-    border:1px solid black;
+`
+
+export const Content = styled.div`
+    display:flex;
+    align-items:center;
+
+    flex-direction:column;
+    margin-bottom:5%;
     gap :40px;
     
 `
@@ -80,7 +121,7 @@ export const Box = styled.div`
     height:100%;
     min-height:50px;
     gap :10px;
-    padding:10px;
+
 
     border-radius:10px;
     background-color:#303238;
@@ -97,11 +138,20 @@ export const TitleBox = styled.div`
     border-bottom: 1px solid #555962;
 `
 
-export const ContentBox = styled.div`
+export const VideoSection = styled.div`
     display:flex;
-    justify-content:center;
+    flex-direction:column;
+    position:sticky;
+    top:0;
+     justify-content:center; 
     align-items:center;
 
+    background-color:#303238;
+
+
+    width:65%;
+    height:500px;
+  
     
 `
 
@@ -109,20 +159,45 @@ export const Player = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    margin-bottom:5%;
-    margin-top:5%;
+    background-color:clear;
     width:100%;
-    max-width:700px;
-
-    
 `
 
 export const Option = styled.div`
+    padding:3% 0 3% 0;
+    display:flex;
+    width:100%;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    background-color:clear;
+    
+`
+
+export const OptionLeft = styled.div`
     display:flex;
     gap:10px;
-    
+
 `
 export const StyledLink = styled(Link)`
     text-decoration:none;
     color:aliceblue;
+    font-size:30px;
+    width:30px;
+    padding:20px;
  `
+
+export const CommentBox = styled.div`
+    border-bottom: 1px solid #555962;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:20px;
+
+    word-break:break;
+`
+
+export const StyledSpan = styled.span`
+    word-break:break-all;
+`
+

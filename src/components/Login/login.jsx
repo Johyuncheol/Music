@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { Link } from "react-router-dom";
-import Register from '../Register/register';
 //import { useHistory } from 'react-router-dom';
+import { useCookies } from "react-cookie";
+
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const [cookie, setCookie] = useCookies(['User']);
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,13 +21,30 @@ const Login = () => {
     // 로그인 로직
 
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
-    // history.push('/'); // 다음 경로로 이동
+    axios.post('http://3.38.191.164/login', { id: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
+    .then(response => {
+        if (response.status === 201) {
+            //토큰의 유효시간 부여
+/*             let expires = new Date();
+            expires.setMinutes(expires.getMinutes() + 1) */
+           /*  console.log(response.data.token); */
 
+            setCookie('User', response.data.token, {
+              path: "/",
+              expire:0 
+            });
+
+            alert("로그인!");
+            navigate("/")
+        }
+    })
+
+    .catch(error => {
+        alert(error.response.data.message)
+    });
+    
   };
 
-  const handleRegister = () => {
-    // 회원가입 로직
-  };
 
   return (
     <Wrap>
@@ -47,7 +71,6 @@ const Login = () => {
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
-        {/* <Button onClick={handleRegister}>회원가입</Button> */}
         <Link to="/register"><Button>회원가입</Button></Link>
       </ButtonGroup>
     </Wrap>

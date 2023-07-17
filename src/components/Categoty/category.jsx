@@ -25,7 +25,7 @@ const Category = () => {
             <Box>
                 <TitleBox>
                     ◎ {item.title}
-                    <StyledLink to={`/detail/${item.id}`}> . . . </StyledLink>
+                    <StyledLink to={`/detail/${item.id}`}> 세부페이지 </StyledLink>
                 </TitleBox>
 
                 <ContentBox>
@@ -35,11 +35,14 @@ const Category = () => {
                     
                 </ContentBox>
                     <Option>
-                        <button>좋아요</button>
-                        <span>+30</span>
-                        <button>댓글</button>
-                        <span>+30</span>
+                        <button>좋아요 +30</button>
+                        {
+                            console.log(item)
+                        }
+                            <span>{`댓글 수 +${item.comments.length}`}</span>
                     </Option>
+
+
 
                 <TitleBox>
                     {item.comment}
