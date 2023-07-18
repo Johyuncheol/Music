@@ -17,7 +17,7 @@ const MainContent = () => {
 
   useEffect(() => {
     fetchTop5Data();
-  });
+  },[]);
 
   useEffect(() => {
     if (top5Data.length > 0) {
@@ -79,11 +79,13 @@ const MainContent = () => {
 
         <Box>
           <div>좋아요 TOP 5</div>
+          
           {top5Data.map((item, index) => (
            <Item key={item.postId}>
-           {`${index + 1}. `}<Title>{item.title}</Title>
+           {`${index + 1}. `}<Link to= {``}><Title>{item.title}</Title></Link>
          </Item>
           ))}
+         
         </Box>
       </Contents>
       <SlideComponent />
@@ -125,12 +127,14 @@ export const Item = styled.div`
   gap: 10px; /* 추가 (원하는 간격으로 조절) */
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 250px; /* 원하는 글자수에 맞게 조절 */
+  max-width: 500px; /* 원하는 글자수에 맞게 조절 */
+  min-width: 250px;
 `;
 export const Title = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 200px; /* 원하는 글자수에 맞게 조절 */
+  max-width: 500px; /* 원하는 글자수에 맞게 조절 */
+  min-width: 250px;
 `;
 
