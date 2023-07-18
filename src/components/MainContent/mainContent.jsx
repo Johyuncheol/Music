@@ -6,42 +6,60 @@ import { Link } from "react-router-dom";
 
 const MainContent = () => {
   const [top5Data, setTop5Data] = useState([]);
-
-  // 유튭 api url에 담긴 정보
+//const [most, setMost ] = useState('');
   const [params, setParams] = useState({
-    key: "AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk",// 유튭 api에서 발급받은 거랑 나중에 삭제<div className=""></div>
+    key: "AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk",
     part: "snippet",
-    id: "VwdkWQQzos4", //정규식으로 받아온 URL의 v=뒷부분을 가져오자
+    id: '', // 동적으로 추출된 ID를 할당하기 위해 초기값은 빈 문자열로 설정
     maxResults: 20,
   });
-
   const [pic, setPic] = useState("");
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     fetchTop5Data();
-    axios
-      .get("https://www.googleapis.com/youtube/v3/videos", { params })
-      .then((res) => {
-        console.log(res)
-        console.log(res.data.items["0"].snippet.thumbnails.standard.url);
-        setPic(res.data.items["0"].snippet.thumbnails.maxres.url);
-      });
+    extractVideoIdFromUrl();
   }, []);
 
   const fetchTop5Data = async () => {
     try {
       const response = await axios.get("/api/posts/top5");
-      // const sortedData = response.data.sort((a, b) => b.likes - a.likes);
-      // const top5Titles = sortedData.slice(0, 5).map(item => item.title);
-      // setTop5Data(top5Titles);
-      // 5개를 뽑아서 순서대로 줌(서버에서)-> sort 써서 조작할 필요 없음 수정해
       console.log(response.data);
       setTop5Data(response.data);
     } catch (error) {
       console.error("상위 5개 데이터 불러오는 중 오류 발생", error);
     }
-    // fetchTop5Data();
   };
+
+  const extractVideoIdFromUrl = () => {
+    if (top5Data.length > 0) {
+      const youtubeLink = top5Data[0].yUrl;
+    //   const youtubeLink = top5Data[0].yurl;
+
+      const videoId = youtubeLink.split("v=")[1];
+      setParams((prevParams) => ({
+        ...prevParams,
+        id: videoId,
+      }));
+      setTitle(top5Data[0].title); // 첫번째 이름
+    }
+  };
+
+  useEffect(() => {
+    if (params.id) {
+      // 동영상 ID가 할당되면 API 요청 수행
+      axios
+        .get("https://www.googleapis.com/youtube/v3/videos", { params })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data.items[0].snippet.thumbnails.standard.url);
+          setPic(res.data.items[0].snippet.thumbnails.maxres.url);
+        })
+        .catch((error) => {
+          console.error("유튜브 API 요청 실패", error);
+        });
+    }
+  }, [params]);
 
   return (
     <Div>
@@ -51,7 +69,7 @@ const MainContent = () => {
           <Link to={`/detail`}>
             <Img src={pic}></Img>
           </Link>
-          <div>제목이 들어갑니다</div>
+          <div>{title}</div> {/* 수정된 부분 */}
         </Box>
 
         <hr></hr>
