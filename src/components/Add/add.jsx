@@ -97,6 +97,8 @@ const Add = () => {
             </Div>
 
         </AddSection>
+
+        
     );
 };
 

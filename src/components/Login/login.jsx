@@ -43,6 +43,7 @@ const Login = () => {
 
     // 로그인 로직
 
+
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
     axios.post('http://3.38.191.164/login', { id: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
       .then(response => {
@@ -65,6 +66,7 @@ const Login = () => {
       .catch(error => {
         alert(error.response.data.message)
       });
+
 
   };
 
@@ -105,6 +107,7 @@ const Login = () => {
             :
             <></>
         }
+
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>

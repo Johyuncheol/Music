@@ -13,6 +13,7 @@ import NonExistent from './NonExistent';
 import Search from '../components/Search/search';
 import ToUp from '../components/ToUp/toUp';
 
+
 const Main = () => {
     return (
         <Back>
@@ -32,9 +33,11 @@ const Main = () => {
                     <Route path="/register" element={<Register />} />
 
                     <Route path="/add" element={<Add />} />
+
                     <Route path="/all" element={<Add />} />
 
                     <Route path="*" element={<NonExistent />} />
+
 
                 </Routes>
                 

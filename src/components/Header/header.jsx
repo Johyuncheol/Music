@@ -36,6 +36,7 @@ const Header = () => {
             </InputDiv>
 
             <HeaderOption>
+
                 {
                     cookie.User ===undefined
                         ?
@@ -45,7 +46,10 @@ const Header = () => {
 
 
                 }
+
                 <StyledLink to='/mypage'>마이페이지</StyledLink>
+
+
             </HeaderOption>
 
         </HeaderDiv>
