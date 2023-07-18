@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-// import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [newUser, setNewUser] = useState({
+    id: "",
+    password: "",
+});
   //const history = useHistory();
 
   //const handleLogin = () => {
@@ -20,10 +26,27 @@ const Register = () => {
     // 회원가입 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지).
 
     //history.push('/mainpage'); // 다음 경로로 이동
+
+    console.log(email)
+    console.log(password)
+
+
+    axios.post('http://3.38.191.164/register', { id: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
+    .then(response => {
+        if (response.status === 201) {
+            alert("가입되었습니다");
+            navigate("/login")
+        }
+    })
+
+    .catch(error => {
+        alert(error.response.data.message)
+    });
   };
 
   return (
     <Wrap>
+      {/* 확인할것  */}
       <h1>회원가입</h1>
       
       <Box>

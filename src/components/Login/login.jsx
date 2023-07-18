@@ -1,28 +1,75 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Link } from "react-router-dom";
-import Register from '../Register/register';
 //import { useHistory } from 'react-router-dom';
+import { useCookies } from "react-cookie";
+
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const [cookie, setCookie] = useCookies(['User']);
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
+  const [emailState, setEmailState] = useState(true);
   const [password, setPassword] = useState('');
+  const [pwState, setPwState] = useState(true);
 
   //const history = useHistory();
 
+  const checkFrame = () => {
+    const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}[.]');
+    if (regex.test(email)) setEmailState(false);
+    else setEmailState(true);
+
+    if (password.length >= 5) setPwState(false);
+    else setPwState(true);
+
+  }
+
+  useEffect(() => {
+    checkFrame()
+  }, [email, password])
+
+
   const handleLogin = () => {
+
+    if (emailState) {
+      alert("이메일 형식이 아닙니다");
+      return -1;
+    }
+
     // 로그인 로직
 
 
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
-    // history.push('/'); // 다음 경로로 이동
+    axios.post('http://3.38.191.164/login', { id: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
+      .then(response => {
+        if (response.status === 201) {
+          //토큰의 유효시간 부여
+          /*             let expires = new Date();
+                      expires.setMinutes(expires.getMinutes() + 1) */
+          /*  console.log(response.data.token); */
+
+          setCookie('User', response.data.token, {
+            path: "/",
+            expire: 0
+          });
+
+          alert("로그인!");
+          navigate("/")
+        }
+      })
+
+      .catch(error => {
+        alert(error.response.data.message)
+      });
 
 
   };
 
-  const handleRegister = () => {
-    // 회원가입 로직
-  };
 
   return (
     <Wrap>
@@ -36,6 +83,13 @@ const Login = () => {
           placeholder='이메일을 입력해주세요.'
         />
       </Box>
+      {
+          emailState
+            ?
+            <StyledSpan>email 형식이 아닙니다</StyledSpan>
+            :
+            <></>
+        }
 
       <Box>
         <label>Password</label>
@@ -46,11 +100,17 @@ const Login = () => {
           placeholder='비밀번호를 입력해주세요.'
         />
       </Box>
+      {
+          pwState
+            ?
+            <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
+            :
+            <></>
+        }
 
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
-        {/* <Button onClick={handleRegister}>회원가입</Button> */}
         <Link to="/register"><Button>회원가입</Button></Link>
       </ButtonGroup>
     </Wrap>
@@ -96,3 +156,11 @@ const Button = styled.button`
   cursor: pointer;
   outline: none;
 `;
+
+
+const StyledSpan = styled.span`
+  color: #f44646;;
+  font-size:10px;
+`;
+
+

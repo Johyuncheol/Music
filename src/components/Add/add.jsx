@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { addPosts } from '../../api/posts';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 
 const Add = () => {
     const navigate = useNavigate();
+    const [cookie] = useCookies(['User']);
+
+    const checkAuth = ()=>{
+        // 이슈 로그인 -> 토큰값 있다 서버에서 응답 주면 페이지 들여보내줌 
+        if(cookie.User===undefined){
+            alert("로그인 해주세요")
+            navigate("/")
+        }
+    }
+
+    useEffect(()=>{
+        checkAuth();
+    },[cookie])
 
     const [newPost, setnewPost] = useState({//json은 noSQL이라 id 자동생성됨
         title: "",
         yUrl: "",
-        comment: "",
-        category: "ballad", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
+        content: "",
+        category: "KAYO", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
     });
 
     const ChangeInputValue = (e, key) => {
@@ -21,7 +35,7 @@ const Add = () => {
 
     //리액트 쿼리 관련 코드 
     const queryClient = useQueryClient();
-    const mutation = useMutation(addPosts, {
+/*     const mutation = useMutation(addPosts, {
         onSuccess: () => {
             //싱크를 맞춰주는 부분, 하지만 추가를 별도의 페이지에서 하기에 필요는 없다...
             //페이지 전환하면서 다시 불러오기때문
@@ -30,10 +44,11 @@ const Add = () => {
             queryClient.invalidateQueries(`${newPost.category}`)
             console.log("성공")
         }
-    })
+    }) */
 
     const SubmitNewPost = () => {
-        mutation.mutate(newPost)
+/*         mutation.mutate(newPost) */
+        addPosts(newPost)
     }
 
 
@@ -48,8 +63,12 @@ const Add = () => {
                             value={newPost.category}
                             onChange={(e) => ChangeInputValue(e, 'category')}
                         >
-                            <option value="ballad" >발라드</option>
-                            <option value="hiphop">힙합</option>
+                            <option value="KAYO" >가요</option>
+                            <option value="POP">팝</option>
+                            <option value="ROCK">락</option>
+                            <option value="EDM">EDM</option>
+                            <option value="JAZZ-CLASSIC">재즈/클래식</option>
+                            <option value="J-POP">J-POP</option>
                         </Select>
 
                         <button onClick={SubmitNewPost}>올리기</button>
@@ -69,8 +88,8 @@ const Add = () => {
                     />
 
                     <StyledTextarea
-                        value={newPost.comment}
-                        onChange={(e) => ChangeInputValue(e, 'comment')}
+                        value={newPost.content}
+                        onChange={(e) => ChangeInputValue(e, 'content')}
                         placeholder='내용'
                     />
 
