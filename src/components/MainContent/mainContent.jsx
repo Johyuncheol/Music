@@ -4,14 +4,14 @@ import SlideComponent from '../Slider/slider';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const MainContent = () => {
 
+const MainContent = () => {
     const [params, setParams] = useState({
         key: 'AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk',
         part: 'snippet',
         id: 'VwdkWQQzos4', //정규식으로 받아온 URL의 v=뒷부분을 가져오자
         maxResults: 20,
-      });
+    });
 
     const [pic,setPic]=useState('')
 
@@ -22,6 +22,8 @@ useEffect(()=>{
           setPic(res.data.items['0'].snippet.thumbnails.maxres.url)
         })
 },[])
+
+
 
     return (
         <Div>
@@ -81,5 +83,7 @@ export const Img = styled.img`
 export const Item = styled.div`
  background-color:#31343a;
  padding:10px;
-    
+&:hover{
+    background-color:#3e4149;
+}
 `

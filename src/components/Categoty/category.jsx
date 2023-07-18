@@ -9,7 +9,7 @@ const Category = () => {
     const params = useParams();
     console.log(params["*"])// 페이지 id 
 
-    let key=''
+    let key='';
     if(params.id=='all') key='posts' 
     else key = `/posts/category/${params.id}`
 
@@ -17,6 +17,7 @@ const Category = () => {
     const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(key));
     console.log(data);
 
+    // 데이터 통신 상태 출력 
     if (isLoading) {
         return <div>로딩 중...</div>
     }

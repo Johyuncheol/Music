@@ -2,19 +2,17 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { Link } from "react-router-dom";
 
-
-
 const Side = () => {
     return (
         <Section>
             <Box>
-                <StyledLink to='/posts/all'>전체</StyledLink>
-                <StyledLink to='/posts/ballad'>발라드</StyledLink>
-                <StyledLink to='/posts/pop'>팝</StyledLink>
-                <StyledLink to='/posts/rock'>락</StyledLink>
-                <StyledLink to='/posts/edm'>EDM</StyledLink>
-                <StyledLink to='/posts/classic'>재즈/클래식</StyledLink>
-                <StyledLink to='/posts/j-pop'>J-POP</StyledLink>
+                <StyledLink to='/posts/전체'>전체</StyledLink>
+                <StyledLink to='/posts/KAYO'>가요</StyledLink>
+                <StyledLink to='/posts/POP'>팝</StyledLink>
+                <StyledLink to='/posts/ROCK'>락</StyledLink>
+                <StyledLink to='/posts/EDM'>EDM</StyledLink>
+                <StyledLink to='/posts/JAZZ-CLASSIC'>재즈/클래식</StyledLink>
+                <StyledLink to='/posts/J-POP'>J-POP</StyledLink>
                 <StyledLink to='/add'>글쓰기</StyledLink>
             </Box>
         </Section>
@@ -44,6 +42,8 @@ border: 1px solid lightgrey;
 max-width:150px;
 border-radius:10px;
 
+
+
 `
 
 export const Title = styled.div`
@@ -71,4 +71,10 @@ max-width: 100px;
 export const StyledLink = styled(Link)`
     text-decoration:none;
     color:aliceblue;
+
+    border-radius:20px;
+    &:hover{
+        text-decoration: underline;
+
+}
  `

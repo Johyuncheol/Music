@@ -25,7 +25,7 @@ const Add = () => {
         title: "",
         yUrl: "",
         content: "",
-        category: "ballad", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
+        category: "k-pop", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
     });
 
     const ChangeInputValue = (e, key) => {
@@ -35,7 +35,7 @@ const Add = () => {
 
     //리액트 쿼리 관련 코드 
     const queryClient = useQueryClient();
-    const mutation = useMutation(addPosts, {
+/*     const mutation = useMutation(addPosts, {
         onSuccess: () => {
             //싱크를 맞춰주는 부분, 하지만 추가를 별도의 페이지에서 하기에 필요는 없다...
             //페이지 전환하면서 다시 불러오기때문
@@ -44,7 +44,7 @@ const Add = () => {
             queryClient.invalidateQueries(`${newPost.category}`)
             console.log("성공")
         }
-    })
+    }) */
 
     const SubmitNewPost = () => {
 /*         mutation.mutate(newPost) */
@@ -63,12 +63,12 @@ const Add = () => {
                             value={newPost.category}
                             onChange={(e) => ChangeInputValue(e, 'category')}
                         >
-                            <option value="ballad" >발라드</option>
-                            <option value="pop">팝</option>
-                            <option value="rock">락</option>
-                            <option value="edm">EDM</option>
-                            <option value="jazz/classic">재즈/클래식</option>
-                            <option value="J-pop">J-POP</option>
+                            <option value="KAYO" >가요</option>
+                            <option value="POP">팝</option>
+                            <option value="ROCK">락</option>
+                            <option value="EDM">EDM</option>
+                            <option value="JAZZ-CLASSIC">재즈/클래식</option>
+                            <option value="J-POP">J-POP</option>
                         </Select>
 
                         <button onClick={SubmitNewPost}>올리기</button>

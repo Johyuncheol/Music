@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { getOnePost } from '../../api/posts';
 import { useQuery } from 'react-query';
@@ -6,20 +6,30 @@ import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 
+import InputValue from './inputValue';
+
 const Detail = () => {
     const params = useParams();
     const navigate = useNavigate();
-
+    const [commentState, setCommentState] = useState(false);
     console.log(params.id)
+
+
+
 
     const { isLoading, isError, data } = useQuery(`${params.id}`, () => getOnePost(params.id));
 
+
+    // 데이터 통신 상태 출력 
     if (isLoading) {
         return <div>로딩 중...</div>
     }
 
-    
-    console.log(data);
+    if (isError) {
+        return <div>에러가 발생하였습니다!</div>
+    }
+
+
 
     const Card = ({ item }) => {
         return (
@@ -36,18 +46,34 @@ const Detail = () => {
                             <ReactPlayer url={item.yurl} controls width={'100%'} />
                         </Player>
 
-                       <Option>
+                        <Option>
                             <OptionLeft>
                                 <button>좋아요 {item.likes}</button>
-{/*                                 <span>{`댓글 수 +${item.commentList.length}`}</span>
+                                {/*                                 <span>{`댓글 수 +${item.commentList.length}`}</span>
  */}                            </OptionLeft>
-                            <button>댓글쓰기</button>
-                        </Option> 
+                            <button onClick={() => setCommentState(!commentState)}>
+                                {
+                                    commentState
+                                        ? "입력창 닫기"
+                                        : "댓글쓰기"
+                                }
+                            </button>
+                        </Option>
                     </VideoSection>
 
 
 
                     <CommentSection>
+                        {
+                            commentState
+                                ? 
+                                    <CommentBox>
+                                        <InputValue id={params.id}></InputValue>
+                                    </CommentBox>
+                                :
+                                    <></>
+
+                        }
                         {
                             item.commentList?.map((c) => {
                                 return (
@@ -72,11 +98,11 @@ const Detail = () => {
             <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
             <Content>
                 {
-                /*     data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문 */
-      /*                   return ( */
-                            <Card item={data} key={data.postId} />
-          /*               ) */
-         /*            }) */
+                    /*     data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문 */
+                    /*                   return ( */
+                    <Card item={data} key={data.postId} />
+                    /*               ) */
+                    /*            }) */
                 }
             </Content>
         </Wrap>

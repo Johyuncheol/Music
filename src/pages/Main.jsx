@@ -11,6 +11,7 @@ import Login from '../components/Login/login';
 import Register from '../components/Register/register';
 import NonExistent from './NonExistent';
 import Search from '../components/Search/search';
+import ToUp from '../components/ToUp/toUp';
 
 const Main = () => {
     return (
@@ -36,7 +37,9 @@ const Main = () => {
                     <Route path="*" element={<NonExistent />} />
 
                 </Routes>
+                
             </ContentSection>
+            <ToUp/>
         </Back>
     );
 };
@@ -45,7 +48,7 @@ export default Main;
 
 export const Back = styled.div`
     display: grid;
-    grid-template-columns: 10vw 80vw;
+    grid-template-columns: 10vw 80vw 1vw;
     grid-gap: 1vw;
     background-color:#26282d;
     padding:3%;

@@ -26,7 +26,7 @@ const Header = () => {
         <HeaderDiv>
             <Title>
                 <StyledLink to='/'>
-                    home
+                    000
                 </StyledLink>
             </Title>
 

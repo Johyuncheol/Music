@@ -29,3 +29,11 @@ export const searchPosts = async(id)=>{
     console.log(response);
     return response.data;
 }
+
+// 댓글 등록 
+export const addComment = async(id,comment)=>{
+    console.log(comment)
+    const response =await axios.post(`/api/posts/${id}/comments`,comment);
+    console.log(response);
+/*     return response.data; */
+}
