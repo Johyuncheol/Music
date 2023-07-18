@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { getPosts } from '../../api/posts';
+import { getOnePost } from '../../api/posts';
 import { useQuery } from 'react-query';
 import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
@@ -9,8 +9,11 @@ import { useNavigate } from 'react-router-dom';
 const Detail = () => {
     const params = useParams();
     const navigate = useNavigate();
-    const { isLoading, isError, data } = useQuery('all', () => getPosts(params.id));
 
+    console.log(params.id)
+
+    const { isLoading, isError, data } = useQuery('all', () => getOnePost(params.id));
+    console.log(data);
 
     const Card = ({ item }) => {
         return (
@@ -18,25 +21,29 @@ const Detail = () => {
                 <TitleBox>
                     ◎ {item.title}
                 </TitleBox>
-
+                <TitleBox>
+                    ◎ {item.content}
+                </TitleBox>
                 <ContentSection>
                     <VideoSection>
                         <Player> {/* 조절하려면 따로 감싸줘야함 */}
-                            <ReactPlayer url={item.yUrl} controls width={'100%'} />
+                            <ReactPlayer url={item.yurl} controls width={'100%'} />
                         </Player>
 
-    {/*                     <Option>
+                       <Option>
                             <OptionLeft>
-                                <button>좋아요 +30</button>
-                                <span>{`댓글 수 +${item.comments.length}`}</span>
-                            </OptionLeft>
+                                <button>좋아요 {item.likes}</button>
+{/*                                 <span>{`댓글 수 +${item.commentList.length}`}</span>
+ */}                            </OptionLeft>
                             <button>댓글쓰기</button>
-                        </Option> */}
+                        </Option> 
                     </VideoSection>
-                    
+
+
+
                     <CommentSection>
                         {
-                            item.comments?.map((c) => {
+                            item.commentList?.map((c) => {
                                 return (
                                     <CommentBox>
                                         <StyledSpan>ID: {c.username}</StyledSpan>
@@ -59,11 +66,11 @@ const Detail = () => {
             <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
             <Content>
                 {
-                    data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문
-                        return (
-                            <Card item={item} key={item.id} />
-                        )
-                    })
+                /*     data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문 */
+      /*                   return ( */
+                            <Card item={data} key={data.postId} />
+          /*               ) */
+         /*            }) */
                 }
             </Content>
         </Wrap>

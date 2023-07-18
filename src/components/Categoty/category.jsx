@@ -8,8 +8,11 @@ import ReactPlayer from 'react-player';
 const Category = () => {
     const params = useParams();
     console.log(params.id)// 페이지 id 
+    let key=''
+    if(params.id=='all') key='posts' 
+    else key = `/posts/category/${params.id}`
 
-    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(params.id));
+    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(key));
     console.log(data);
 
     if (isLoading) {
@@ -25,7 +28,7 @@ const Category = () => {
             <Box>
                 <TitleBox>
                     ◎ {item.title}
-                    <StyledLink to={`/detail/${item.id}`}> 세부페이지 </StyledLink>
+                    <StyledLink to={`/detail/${item.postId}`}> 세부페이지 </StyledLink>
                 </TitleBox>
 
                 <ContentBox>

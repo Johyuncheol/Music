@@ -9,8 +9,12 @@ const Side = () => {
         <Section>
             <Box>
                 <StyledLink to='/posts/all'>전체</StyledLink>
-                <StyledLink to='/posts/ballad'>발라드</StyledLink>
-                <StyledLink to='/posts/hiphop'>힙합</StyledLink>
+                <StyledLink to='/posts/발라드'>발라드</StyledLink>
+                <StyledLink to='/posts/pop'>팝</StyledLink>
+                <StyledLink to='/posts/rock'>락</StyledLink>
+                <StyledLink to='/posts/edm'>EDM</StyledLink>
+                <StyledLink to='/posts/classic'>재즈/클래식</StyledLink>
+                <StyledLink to='/posts/j-pop'>J-POP</StyledLink>
                 <StyledLink to='/add'>글쓰기</StyledLink>
             </Box>
         </Section>
