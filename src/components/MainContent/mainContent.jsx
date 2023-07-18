@@ -17,8 +17,13 @@ const MainContent = () => {
 
   useEffect(() => {
     fetchTop5Data();
-    extractVideoIdFromUrl();
-  }, []);
+  });
+
+  useEffect(() => {
+    if (top5Data.length > 0) {
+      extractVideoIdFromUrl();
+    }
+  }, [top5Data]);
 
   const fetchTop5Data = async () => {
     try {
@@ -33,6 +38,7 @@ const MainContent = () => {
   const extractVideoIdFromUrl = () => {
     if (top5Data.length > 0) {
       const youtubeLink = top5Data[0].yurl;
+
       const videoId = youtubeLink.split("v=")[1];
       setParams((prevParams) => ({
         ...prevParams,
@@ -121,7 +127,6 @@ export const Item = styled.div`
   text-overflow: ellipsis;
   max-width: 250px; /* 원하는 글자수에 맞게 조절 */
 `;
-
 export const Title = styled.div`
   overflow: hidden;
   white-space: nowrap;
