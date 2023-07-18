@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+
+    const navigate=useNavigate();
     const [cookie, setCookie, removeCookie] = useCookies(['User']);
+
+    const [value,setValue] = useState('');
+
     const logOut = () => {
         console.log(cookie.User)
         removeCookie('User');
     }
+
+    const handlePressEnter = e => {
+        if (e.key === 'Enter') {
+            navigate(`/search/${value}`)
+        }
+      };
 
     return (
         <HeaderDiv>
@@ -20,7 +32,7 @@ const Header = () => {
 
             <InputDiv>
                 <span>search :</span>
-                <Input />
+                <Input onChange={(e)=>{setValue(e.target.value)}} onKeyDown={handlePressEnter}/>
             </InputDiv>
 
             <HeaderOption>

@@ -9,7 +9,7 @@ const Side = () => {
         <Section>
             <Box>
                 <StyledLink to='/posts/all'>전체</StyledLink>
-                <StyledLink to='/posts/발라드'>발라드</StyledLink>
+                <StyledLink to='/posts/ballad'>발라드</StyledLink>
                 <StyledLink to='/posts/pop'>팝</StyledLink>
                 <StyledLink to='/posts/rock'>락</StyledLink>
                 <StyledLink to='/posts/edm'>EDM</StyledLink>

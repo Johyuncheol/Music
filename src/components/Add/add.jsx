@@ -24,7 +24,7 @@ const Add = () => {
     const [newPost, setnewPost] = useState({//json은 noSQL이라 id 자동생성됨
         title: "",
         yUrl: "",
-        comment: "",
+        content: "",
         category: "ballad", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
     });
 
@@ -47,7 +47,8 @@ const Add = () => {
     })
 
     const SubmitNewPost = () => {
-        mutation.mutate(newPost)
+/*         mutation.mutate(newPost) */
+        addPosts(newPost)
     }
 
 
@@ -63,7 +64,11 @@ const Add = () => {
                             onChange={(e) => ChangeInputValue(e, 'category')}
                         >
                             <option value="ballad" >발라드</option>
-                            <option value="hiphop">힙합</option>
+                            <option value="pop">팝</option>
+                            <option value="rock">락</option>
+                            <option value="edm">EDM</option>
+                            <option value="jazz/classic">재즈/클래식</option>
+                            <option value="J-pop">J-POP</option>
                         </Select>
 
                         <button onClick={SubmitNewPost}>올리기</button>
@@ -83,8 +88,8 @@ const Add = () => {
                     />
 
                     <StyledTextarea
-                        value={newPost.comment}
-                        onChange={(e) => ChangeInputValue(e, 'comment')}
+                        value={newPost.content}
+                        onChange={(e) => ChangeInputValue(e, 'content')}
                         placeholder='내용'
                     />
 

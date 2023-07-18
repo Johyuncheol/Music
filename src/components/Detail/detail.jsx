@@ -12,7 +12,13 @@ const Detail = () => {
 
     console.log(params.id)
 
-    const { isLoading, isError, data } = useQuery('all', () => getOnePost(params.id));
+    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getOnePost(params.id));
+
+    if (isLoading) {
+        return <div>로딩 중...</div>
+    }
+
+    
     console.log(data);
 
     const Card = ({ item }) => {

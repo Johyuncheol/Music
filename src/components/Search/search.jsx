@@ -1,20 +1,15 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { getPosts } from '../../api/posts';
+import { searchPosts } from '../../api/posts';
 import { useQueries, useQuery } from 'react-query';
 import { useParams,Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
-const Category = () => {
+const Search = () => {
     const params = useParams();
-    console.log(params["*"])// 페이지 id 
-
-    let key=''
-    if(params.id=='all') key='posts' 
-    else key = `/posts/category/${params.id}`
 
     //전체 , 카테고리별 조회일 때
-    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(key));
+    const { isLoading, isError, data } = useQuery(`${params.id}`, () => searchPosts(params.id));
     console.log(data);
 
     if (isLoading) {
@@ -70,7 +65,7 @@ const Category = () => {
     );
 };
 
-export default Category;
+export default Search;
 
 export const Wrap = styled.div`
     display:flex;

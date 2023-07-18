@@ -16,7 +16,16 @@ export const getOnePost = async(key)=>{
 }
 
 
-
+//게시글 등록
 export const addPosts = async(newPost)=>{
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/post`,newPost);
+    console.log(newPost)
+    const response =await axios.post(`/api/posts`,newPost);
+    console.log(response);
+}
+
+//게시글 검색(제목으로)
+export const searchPosts = async(id)=>{
+    const response =await axios.get(`/api/posts/search/${id}`);
+    console.log(response);
+    return response.data;
 }
