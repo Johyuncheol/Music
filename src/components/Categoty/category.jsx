@@ -7,11 +7,17 @@ import ReactPlayer from 'react-player';
 
 const Category = () => {
     const params = useParams();
-    console.log(params.id)// 페이지 id 
+    console.log(params["*"])// 페이지 id 
 
-    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(params.id));
+    let key='';
+    if(params.id=='ALL') key='posts' 
+    else key = `/posts/category/${params.id}`
+
+    //전체 , 카테고리별 조회일 때
+    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(key));
     console.log(data);
 
+    // 데이터 통신 상태 출력 
     if (isLoading) {
         return <div>로딩 중...</div>
     }
@@ -25,24 +31,27 @@ const Category = () => {
             <Box>
                 <TitleBox>
                     ◎ {item.title}
-                    <StyledLink to={`/detail/${item.id}`}> . . . </StyledLink>
+                    <StyledLink to={`/detail/${item.postId}`}> 세부페이지 </StyledLink>
                 </TitleBox>
 
                 <ContentBox>
                     <Player> {/* 조절하려면 따로 감싸줘야함 */}
-                        <ReactPlayer url={item.yUrl} controls />
+                        <ReactPlayer url={item.yurl} controls />
                     </Player>
                     
                 </ContentBox>
-                    <Option>
-                        <button>좋아요</button>
-                        <span>+30</span>
-                        <button>댓글</button>
-                        <span>+30</span>
+{/*                     <Option>
+                        <button>좋아요 +30</button>
+                        {
+                            console.log(item)
+                        }
+                            <span>{`댓글 수 +${item.comments.length}`}</span>
                     </Option>
+ */}
+
 
                 <TitleBox>
-                    {item.comment}
+                    {item.content}
                 </TitleBox>
             </Box>
         );
@@ -54,7 +63,7 @@ const Category = () => {
             {
                 data?.map((item) => {
                     return (
-                        <Card item={item} key={item.id} />
+                        <Card item={item} key={item.postId} />
                     )
                 })
             }

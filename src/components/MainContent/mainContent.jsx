@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const MainContent = () => {
   const [top5Data, setTop5Data] = useState([]);
-//const [most, setMost ] = useState('');
   const [params, setParams] = useState({
     key: "AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk",
     part: "snippet",
@@ -33,15 +32,13 @@ const MainContent = () => {
 
   const extractVideoIdFromUrl = () => {
     if (top5Data.length > 0) {
-      const youtubeLink = top5Data[0].yUrl;
-    //   const youtubeLink = top5Data[0].yurl;
-
+      const youtubeLink = top5Data[0].yurl;
       const videoId = youtubeLink.split("v=")[1];
       setParams((prevParams) => ({
         ...prevParams,
         id: videoId,
       }));
-      setTitle(top5Data[0].title); // 첫번째 이름
+      setTitle(top5Data[0].title); 
     }
   };
 
@@ -69,7 +66,7 @@ const MainContent = () => {
           <Link to={`/detail`}>
             <Img src={pic}></Img>
           </Link>
-          <div>{title}</div> {/* 수정된 부분 */}
+          <Title>{title}</Title> {/* 수정된 부분 */}
         </Box>
 
         <hr></hr>
@@ -77,7 +74,9 @@ const MainContent = () => {
         <Box>
           <div>좋아요 TOP 5</div>
           {top5Data.map((item, index) => (
-            <Item key={item.postId}>{`${index + 1}. ${item.title}`}</Item>
+           <Item key={item.postId}>
+           {`${index + 1}. `}<Title>{item.title}</Title>
+         </Item>
           ))}
         </Box>
       </Contents>
@@ -114,4 +113,19 @@ export const Img = styled.img`
 export const Item = styled.div`
   background-color: #31343a;
   padding: 10px;
+  overflow: hidden;
+  display: flex; /* 추가 */
+  align-items: center; /* 추가 */
+  gap: 10px; /* 추가 (원하는 간격으로 조절) */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 250px; /* 원하는 글자수에 맞게 조절 */
 `;
+
+export const Title = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px; /* 원하는 글자수에 맞게 조절 */
+`;
+
