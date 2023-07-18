@@ -82,7 +82,9 @@ const MainContent = () => {
           
           {top5Data.map((item, index) => (
            <Item key={item.postId}>
-           {`${index + 1}. `}<CustomLink to= {``}><Title>{item.title}</Title></CustomLink>
+           {`${index + 1}. `}<CustomLink to="/">
+  <TruncatedText>{item.title}</TruncatedText>
+</CustomLink>
          </Item>
           ))}
          
@@ -127,19 +129,26 @@ export const Item = styled.div`
   gap: 10px; /* 추가 (원하는 간격으로 조절) */
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 500px; /* 원하는 글자수에 맞게 조절 */
-  min-width: 250px;
+  max-width: 400px; /* 원하는 글자수에 맞게 조절 */
 `;
 export const Title = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 500px; /* 원하는 글자수에 맞게 조절 */
-  min-width: 250px;
+  max-width: 200px; /* 원하는 글자수에 맞게 조절 */
 `;
+
 export const CustomLink = styled(Link)`
-  color: #00a8ff; /* 링크의 색상을 원하는 색상으로 변경 */
-  text-decoration: none; /* 밑줄 제거 */
-  cursor: pointer; /* 포인터로 변경하여 마우스 호버 효과 표시 */
+  color: #00a8ff;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const TruncatedText = styled.span`
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 340px; /* 원하는 글자수에 맞게 조절 */
 `;
 
