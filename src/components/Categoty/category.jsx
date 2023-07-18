@@ -10,7 +10,7 @@ const Category = () => {
     console.log(params["*"])// 페이지 id 
 
     let key='';
-    if(params.id=='all') key='posts' 
+    if(params.id=='ALL') key='posts' 
     else key = `/posts/category/${params.id}`
 
     //전체 , 카테고리별 조회일 때

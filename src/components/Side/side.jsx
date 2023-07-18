@@ -6,7 +6,7 @@ const Side = () => {
     return (
         <Section>
             <Box>
-                <StyledLink to='/posts/전체'>전체</StyledLink>
+                <StyledLink to='/posts/ALL'>전체</StyledLink>
                 <StyledLink to='/posts/KAYO'>가요</StyledLink>
                 <StyledLink to='/posts/POP'>팝</StyledLink>
                 <StyledLink to='/posts/ROCK'>락</StyledLink>

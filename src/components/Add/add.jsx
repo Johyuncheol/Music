@@ -25,7 +25,7 @@ const Add = () => {
         title: "",
         yUrl: "",
         content: "",
-        category: "k-pop", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
+        category: "KAYO", //셀렉트 박스에서 변동이 없으면 onchange가 동작안함 기본값 설정
     });
 
     const ChangeInputValue = (e, key) => {
