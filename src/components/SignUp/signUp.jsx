@@ -21,13 +21,15 @@ const Signup = () => {
 
       if (response.status === 201) {
         console.log(response);
-        navigate('/'); // 회원가입 후 메인 페이지로 이동
-      
+        navigate('/'); // 회원가입 후 이전 페이지로 이동
+        alert('회원가입이 완료 되었습니다');
       }
     } catch (error) {
       setError('서버 통신 실패');
       console.error(error);
       alert(error.response.data.message)
+      id.value = '';
+      password.value='';
     }
   };
 

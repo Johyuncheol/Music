@@ -4,9 +4,6 @@ import { styled } from 'styled-components';
 import { useCookies } from 'react-cookie';
 
 
-
-// ...
-
 const Header = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['id']);
 

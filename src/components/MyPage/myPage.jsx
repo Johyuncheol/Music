@@ -8,7 +8,6 @@ const MyPage = () => {
       <Wrap>
         <div>
           <h3>이메일 주소(계정 정보)</h3>
-          <button>로그아웃</button>
         </div>
         <Box>내가 작성한 글 </Box>
         <Box>내가 작성한 글 </Box>

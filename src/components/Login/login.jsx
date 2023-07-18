@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Login = () => {
   const formRef = useRef();
   const [cookies, setCookie] = useCookies(['id']);
+  // const [error, setError] = useState('');
   // 쿠키를 전역적으로 쓰라.
   const navigate = useNavigate();
 
@@ -38,6 +39,9 @@ const Login = () => {
       })
       .catch((error) => {
         console.error(error);
+         alert(error.response.data.message);
+         id.value = '';
+        password.value = '';
       });
   };
 
