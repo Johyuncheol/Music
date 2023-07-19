@@ -89,7 +89,8 @@ const MainContent = () => {
           <div>좋아요 TOP 5</div>
 
           {
-
+            top5Data.length !==0
+            ? 
             top5Data?.map((item, index) => (
 
               <Item key={item.postId}>
@@ -99,6 +100,8 @@ const MainContent = () => {
               </Item>
 
             ))
+            :
+            <div>로딩중...</div>
 
           }
 
