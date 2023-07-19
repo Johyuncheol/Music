@@ -30,8 +30,8 @@ const Category = () => {
         return (
             <Box>
                 <TitleBox>
-                    ◎ {item.title}
-                    <StyledLink to={`/detail/${item.postId}`}> 세부페이지 </StyledLink>
+                    <Span>◎ {item.title}</Span>
+                    <StyledLink to={`/detail/${item.postId}`}> . . . </StyledLink>
                 </TitleBox>
 
                 <ContentBox>
@@ -40,14 +40,20 @@ const Category = () => {
                     </Player>
                     
                 </ContentBox>
-{/*                     <Option>
+                    <Option>
                         <button>좋아요 +30</button>
                         {
                             console.log(item)
                         }
-                            <span>{`댓글 수 +${item.comments.length}`}</span>
+                            <span>
+                                {`댓글 수 +${item.commentList==null
+                                        ? 0
+                                        : item.commentList.length
+                                    }`
+                                }
+                                </span>
                     </Option>
- */}
+
 
 
                 <TitleBox>
@@ -97,7 +103,6 @@ export const Box = styled.div`
     height:100%;
     min-height:50px;
     gap :10px;
-    padding:10px;
 
     border-radius:10px;
     background-color:#303238;
@@ -110,6 +115,8 @@ export const TitleBox = styled.div`
     align-items:center;
     margin-top:10px;
     min-height:50px;
+
+    padding:3%;
 
     border-bottom: 1px solid #555962;
 `
@@ -126,10 +133,8 @@ export const Player = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    margin-bottom:5%;
-    margin-top:5%;
+
     width:100%;
-    max-width:700px;
 
     
 `
@@ -142,4 +147,12 @@ export const Option = styled.div`
 export const StyledLink = styled(Link)`
     text-decoration:none;
     color:aliceblue;
+    font-size:20px;
+ `
+
+export const Span = styled.span`
+    width:80%;
+    text-decoration:none;
+    color:aliceblue;
+
  `

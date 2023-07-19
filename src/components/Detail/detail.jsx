@@ -5,20 +5,29 @@ import { useQuery } from 'react-query';
 import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
-
+import { delComment } from '../../api/posts';
 import InputValue from './inputValue';
+import { useMutation, useQueryClient } from 'react-query';
 
 const Detail = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [commentState, setCommentState] = useState(false);
-    console.log(params.id)
-
-
-
 
     const { isLoading, isError, data } = useQuery(`${params.id}`, () => getOnePost(params.id));
 
+    const queryClient = useQueryClient();
+
+    const CommentDel =(id)=>{
+        mutation.mutate(id);
+    }
+    const mutation = useMutation((id) => delComment(id), {
+        onSuccess: () => {
+
+            queryClient.invalidateQueries(`${params.id}`)
+            console.log("성공")
+        }
+    })
 
     // 데이터 통신 상태 출력 
     if (isLoading) {
@@ -38,7 +47,7 @@ const Detail = () => {
                     ◎ {item.title}
                 </TitleBox>
                 <TitleBox>
-                    ◎ {item.content}
+                    {item.content}
                 </TitleBox>
                 <ContentSection>
                     <VideoSection>
@@ -49,8 +58,8 @@ const Detail = () => {
                         <Option>
                             <OptionLeft>
                                 <button>좋아요 {item.likes}</button>
-                                {/*                                 <span>{`댓글 수 +${item.commentList.length}`}</span>
- */}                            </OptionLeft>
+                                <span>{`댓글 수 +${item.commentList.length}`}</span>
+                            </OptionLeft>
                             <button onClick={() => setCommentState(!commentState)}>
                                 {
                                     commentState
@@ -66,20 +75,25 @@ const Detail = () => {
                     <CommentSection>
                         {
                             commentState
-                                ? 
-                                    <CommentBox>
-                                        <InputValue id={params.id}></InputValue>
-                                    </CommentBox>
+                                ?
+                                <CommentBox>
+                                    <InputValue id={params.id}></InputValue>
+                                </CommentBox>
                                 :
-                                    <></>
+                                <></>
 
                         }
                         {
                             item.commentList?.map((c) => {
                                 return (
                                     <CommentBox>
-                                        <StyledSpan>ID: {c.username}</StyledSpan>
-                                        <StyledSpan>{c.comment}</StyledSpan>
+                                        <CommentOption>
+                                        <StyledSpan>ID: {c.commentId}</StyledSpan>
+                                        <button onClick={()=>CommentDel(c.commentId)}>삭제</button>
+                                        </CommentOption>
+                                        
+                                        <StyledSpan>{c.content}</StyledSpan>
+                                        
                                     </CommentBox>
                                 );
 
@@ -98,11 +112,7 @@ const Detail = () => {
             <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
             <Content>
                 {
-                    /*     data?.map((item) => { // 일단은 테스트용 data는 [{}]형식으로 오기 때문 */
-                    /*                   return ( */
                     <Card item={data} key={data.postId} />
-                    /*               ) */
-                    /*            }) */
                 }
             </Content>
         </Wrap>
@@ -116,15 +126,15 @@ export default Detail;
 
 export const CommentSection = styled.div`
     color:aliceblue;
-    width:10%;
+    width:30%;
     min-width:190px;
    
 `
 
 export const ContentSection = styled.div`
     display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
+    justify-content:space-between;
+
     color:aliceblue;
 
     margin-top:1%;
@@ -156,7 +166,7 @@ export const Box = styled.div`
     color:aliceblue;
     flex-direction:column;
     
-    width:80%;
+    width:90%;
     height:100%;
     min-height:50px;
     gap :10px;
@@ -171,8 +181,8 @@ export const TitleBox = styled.div`
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-top:10px;
-    min-height:50px;
+    padding-left:10px;
+    height:70px;
 
     border-bottom: 1px solid #555962;
 `
@@ -188,7 +198,7 @@ export const VideoSection = styled.div`
     background-color:#303238;
 
 
-    width:65%;
+    width:70%;
     height:500px;
   
     
@@ -240,3 +250,7 @@ export const StyledSpan = styled.span`
     word-break:break-all;
 `
 
+export const CommentOption = styled.div`
+    display:flex;
+    justify-content:space-between;
+`
