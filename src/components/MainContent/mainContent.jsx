@@ -72,6 +72,8 @@ const MainContent = () => {
     }
   }, [params]);
 
+  console.log(top5Data);
+
   return (
     <Div>
       <Contents>
@@ -89,7 +91,7 @@ const MainContent = () => {
           <div>좋아요 TOP 5</div>
 
           {
-            top5Data.length !==0
+            Array.isArray(top5Data)
             ? 
             top5Data?.map((item, index) => (
 
