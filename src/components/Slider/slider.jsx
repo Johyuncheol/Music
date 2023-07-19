@@ -12,10 +12,9 @@ const SlideComponent = () => {
 
 
     const getPicsOnURL = async() => {
-        await setTimeout(() => {
-            console.log("Delayed for 1 second.");
-          }, "1000");
-          
+
+        
+
         if (data !== undefined) {
             console.log(data);
             const Recent50 = data.slice(0, 49);
@@ -50,6 +49,10 @@ const SlideComponent = () => {
                     }
                     /*    Thumbnails.push(res.data.items['0'].snippet.thumbnails.standard.url) */
                 })
+
+/*                 await setTimeout(() => {
+                    console.log("Delayed for 1 second.");
+                }, "1000"); */
         })
 
         setPic(Recent50);
@@ -67,9 +70,6 @@ const SlideComponent = () => {
 
     const [currentImgOrder, setcCurrentImgOrder] = useState(0);
 
-    /*      useEffect(()=>{
-            fetchData();
-        },[])  */
 
     const MoveSlider = () => {
         if (slideRef.current !== null) {
@@ -100,6 +100,9 @@ const SlideComponent = () => {
         return <div>로딩 중...</div>
     }
 
+    if(pic==undefined)
+    return <div>로딩중 ...</div>
+
     if (isError) {
         return <div>에러가 발생하였습니다!</div>
     }
@@ -109,8 +112,9 @@ const SlideComponent = () => {
             <StyledButton onClick={moveToPrevSlide}>{'<'}</StyledButton>
             <Wrapper >
                 <SlideWrapper ref={slideRef}>
-
-
+                    {
+                        console.log(pic)
+                    }
                     {
                         pic?.map((item) => {
                             return <Img onClick={() => navigate(`detail/${item.postId}`)} src={item.Thumbnails} key={item.postId}></Img>

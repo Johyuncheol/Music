@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [cookie, setCookie] = useCookies(['User']);
+  const [cID, setCID] = useCookies(['userID']);
 
   const navigate = useNavigate();
 
@@ -36,32 +37,28 @@ const Login = () => {
 
   const handleLogin = () => {
 
-    if (emailState) {
+/*     if (emailState) {
       alert("이메일 형식이 아닙니다");
       return -1;
-    }
+    } */
 
     // 로그인 로직
 
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
     axios.post('/api/users/login', { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
       .then(response => {
-        console.log(response);
+
         if (response.status === 200) {
-          //토큰의 유효시간 부여
-          /*             let expires = new Date();
-                      expires.setMinutes(expires.getMinutes() + 1) */
-           console.log(response.headers.authorization.split(" ")[1]);
-/*            const Token= response.headers.authorization.split(" ")[1]
-          setCookie('User', Token, {
+          setCID('userID',email);
+          const Token= response.headers.authorization
+          setCookie('User',Token,{
             path: "/",
             expire: 0
-          }); */
-
-          const Token= response.headers.authorization
-          setCookie('User',Token);
+          });
+          console.log(Token)
 
           alert("로그인!");
+          
           navigate("/")
         }
       })

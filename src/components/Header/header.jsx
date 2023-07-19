@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { useCookies } from 'react-cookie';
 
 import { useNavigate } from 'react-router-dom';
+import { inMypage } from '../../api/posts';
 
 const Header = () => {
 
@@ -17,40 +18,51 @@ const Header = () => {
     removeCookie('User');
   }
 
-  const handlePressEnter = e => {
-    if (e.key === 'Enter') {
-      navigate(`/search/${value}`)
+    const handlePressEnter = e => {
+        if (e.key === 'Enter') {
+            navigate(`/search/${value}`)
+        }
+      };
+
+    const InMyPage =()=>{
+        if(cookie.User!==undefined){
+    
+            navigate('/mypage');
+        }
+        else{
+            alert('로그인해주세요');
+        } 
     }
-  };
 
-  return (
-    <HeaderDiv>
-      <Title>
-        <StyledLink to='/'>
-          000
-        </StyledLink>
-      </Title>
+    return (
+        <HeaderDiv>
+            <Title>
+                <StyledLink to='/'>
+                    000
+                </StyledLink>
+            </Title>
 
-      <InputDiv>
-        <span>search :</span>
-        <Input onChange={(e) => { setValue(e.target.value) }} onKeyDown={handlePressEnter} />
-      </InputDiv>
+            <InputDiv>
+                <span>search :</span>
+                <Input onChange={(e)=>{setValue(e.target.value)}} onKeyDown={handlePressEnter}/>
+            </InputDiv>
 
-      <HeaderOption>
-      {
-        
-        cookie.User === undefined
-          ?
-          <StyledLink to='/login'>로그인/회원가입</StyledLink>
-          :
-          <>
-          <StyledLink to='/mypage'>마이페이지</StyledLink>
-          <StyledLink onClick={logOut}>로그아웃</StyledLink>
-          </>
-      }
-      </HeaderOption>
-    </HeaderDiv>
-  );
+            <HeaderOption>
+                {
+                    cookie.User ===undefined
+                        ?
+                        <StyledLink to='/login'>로그인/회원가입</StyledLink>
+                        :
+                        <StyledLink onClick={logOut}>로그아웃</StyledLink>
+
+
+                }
+                <StyledDiv onClick={InMyPage}>마이페이지</StyledDiv>
+            </HeaderOption>
+
+        </HeaderDiv>
+    );
+
 };
 
 
@@ -119,8 +131,9 @@ color:#555962;
 export const StyledLink = styled(Link)`
     text-decoration:none;
     color:aliceblue;
- 
-
-
-
  `
+
+export const StyledDiv = styled.div`
+text-decoration:none;
+color:aliceblue;
+`

@@ -9,7 +9,8 @@ import Detail from '../components/Detail/detail';
 import Side from '../components/Side/side';
 import Login from '../components/Login/login';
 
-import SignUp from '../components/SignUp/signUp';
+import Signup from '../components/signUp/signUp';
+
 import NonExistent from './NonExistent';
 import Search from '../components/Search/search';
 import ToUp from '../components/ToUp/toUp';
@@ -31,7 +32,9 @@ const Main = () => {
                     <Route path="/mypage" element={<MyPage />} />
 
                     <Route path="/login" element={<Login />} />
-                    <Route path="/signUp" element={<SignUp />} />
+
+                    <Route path="/signUp" element={<Signup />} />
+
 
                     <Route path="/add" element={<Add />} />
 

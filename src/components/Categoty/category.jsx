@@ -1,9 +1,10 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { getPosts } from '../../api/posts';
+import { getPosts,likePost } from '../../api/posts';
 import { useQueries, useQuery } from 'react-query';
 import { useParams,Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
+import { useCookies } from 'react-cookie';
 
 const Category = () => {
     const params = useParams();
@@ -17,6 +18,12 @@ const Category = () => {
     const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(key));
     console.log(data);
 
+
+    const [cookie] = useCookies(['User']);
+
+    const PostLike=(id)=>{
+        likePost(id,cookie.User)
+    }
     // 데이터 통신 상태 출력 
     if (isLoading) {
         return <div>로딩 중...</div>
@@ -45,7 +52,8 @@ const Category = () => {
 
                     <Option>
 
-                        <button>좋아요 +30</button>
+                        <button onClick={()=>PostLike(item.postId)}>좋아요 {item.likes}</button>
+
                         {
                             console.log(item)
                         }

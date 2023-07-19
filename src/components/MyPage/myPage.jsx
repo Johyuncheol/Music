@@ -1,13 +1,16 @@
 
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
+
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { inMypage } from '../../api/posts';
 
 const MyPage = () => {
 
     const navigate = useNavigate();
     const [cookie] = useCookies(['User']);
+    const [data,setData] = useState()
 
     const checkAuth = ()=>{
         if(cookie.User===undefined){
@@ -15,22 +18,36 @@ const MyPage = () => {
             navigate("/")
         }
     }
+
+    const getUserData=async()=>{
+        const data=await inMypage(cookie.User)
+     
+        setData(data);
+    
+    }
+    console.log(data);
+
+
     useEffect(()=>{
         checkAuth();
+        getUserData();
     },[cookie])
 
+    //데이터 받아오기전에 에러뜰수있음
+    if(data===undefined) return <div>로딩중</div>
 
     return (
         <Wrap>
             <div>
-                <h3>이메일 주소(계정 정보)</h3>{/* 쿠키데이터로 처리하면? */}
+                <h3>사용자 ID : {data.username}</h3>{/* 쿠키데이터로 처리하면? */}
             </div>
-            <Box>내가 작성한 글 </Box>
-            <Box>내가 작성한 글 </Box>
-            <Box>내가 작성한 글 </Box>
-            <Box>내가 작성한 글 </Box>
-            <Box>내가 작성한 글 </Box>
-            <Box>내가 작성한 글 </Box>
+        {
+            data.responseList?.map((item)=>{
+                 return <Box onClick={()=>navigate(`/detail/${item.postId}`)}>{item.title} </Box>
+            })
+        }
+            
+
         </Wrap>
     );
 
