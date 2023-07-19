@@ -44,7 +44,7 @@ const MainContent = () => {
   };
 
   const extractVideoIdFromUrl = () => {
-    if (top5Data !== undefined) {
+    if (Array.isArray(top5Data)) {
       const youtubeLink = top5Data[0].yurl;
 
       const videoId = youtubeLink.split("v=")[1];
