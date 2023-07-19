@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const MainContent = () => {
   const [top5Data, setTop5Data] = useState([]);
   const [params, setParams] = useState({
-    key: "AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk",
+    key: "AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w",
     part: "snippet",
     id: '', // 동적으로 추출된 ID를 할당하기 위해 초기값은 빈 문자열로 설정
     maxResults: 20,
