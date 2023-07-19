@@ -8,7 +8,7 @@ import { getPosts } from '../../api/posts';
 
 
 const MainContent = () => {
-  const [top5Data, setTop5Data] = useState([]);
+  /* const [top5Data, setTop5Data] = useState([]);
   const [params, setParams] = useState({
     key: "AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w",
     part: "snippet",
@@ -65,23 +65,23 @@ const MainContent = () => {
           console.error("유튜브 API 요청 실패", error);
         });
     }
-  }, [params]);
+  }, [params]); */
 
   return (
     <Div>
       <Contents>
-        <Box>
+{/*         <Box>
           <div>MOST</div>
           <Link to={`/detail/${top5Data[0]?.postId}`}>
             <Img src={pic}></Img>
           </Link>
-          <Title>{title}</Title> {/* 수정된 부분 */}
+          <Title>{title}</Title> 
         </Box>
 
         <hr></hr>
 
         <Box>
-{/*           <div>좋아요 TOP 5</div>
+          <div>좋아요 TOP 5</div>
 
           {top5Data?.map((item, index) => (
 
@@ -92,8 +92,8 @@ const MainContent = () => {
             </Item>
 
           ))}
- */}
-        </Box>
+
+        </Box> */}
       </Contents>
       {/*       <SlideComponent /> */}
     </Div>
