@@ -95,7 +95,7 @@ const MainContent = () => {
 
         </Box>
       </Contents>
-      <SlideComponent />
+{/*       <SlideComponent /> */}
     </Div>
   );
 };
