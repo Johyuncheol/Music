@@ -52,9 +52,9 @@ const Header = () => {
 
 
       <HeaderOption>
-        {cookies.id ? (
+        {cookie.id ? (
           <>
-            <StyledLink to="/" onClick={handleLogout}>
+            <StyledLink to="/" onClick={logOut}>
               로그아웃
             </StyledLink>
             <StyledLink to="/mypage">마이페이지</StyledLink>
@@ -66,6 +66,8 @@ const Header = () => {
     </HeaderDiv>
   );
 };
+
+
 
 export default Header;
 

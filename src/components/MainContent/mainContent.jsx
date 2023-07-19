@@ -72,7 +72,7 @@ const MainContent = () => {
       <Contents>
         <Box>
           <div>MOST</div>
-          <Link to={`/detail`}>
+          <Link to={`/detail/${top5Data[0]?.postId}`}>
             <Img src={pic}></Img>
           </Link>
           <Title>{title}</Title> {/* 수정된 부분 */}

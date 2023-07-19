@@ -13,13 +13,13 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
-  const [emailState, setEmailState] = useState(true);
+  const [emailState, setEmailState] = useState(false);
   const [password, setPassword] = useState('');
-  const [pwState, setPwState] = useState(true);
+  const [pwState, setPwState] = useState(false);
 
   //const history = useHistory();
 
-  const checkFrame = () => {
+/*   const checkFrame = () => {
     const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}[.]');
     if (regex.test(email)) setEmailState(false);
     else setEmailState(true);
@@ -32,7 +32,7 @@ const Login = () => {
   useEffect(() => {
     checkFrame()
   }, [email, password])
-
+ */
 
   const handleLogin = () => {
 
@@ -43,10 +43,10 @@ const Login = () => {
 
     // 로그인 로직
 
-
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
-    axios.post('http://3.38.191.164/login', { id: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
+    axios.post('/api/users/login', { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
       .then(response => {
+        console.log(response);
         if (response.status === 201) {
           //토큰의 유효시간 부여
           /*             let expires = new Date();
@@ -67,44 +67,28 @@ const Login = () => {
         alert(error.response.data.message)
       });
 
-
   };
-
 
 
   return (
     <Wrap>
+      <h1>로그인</h1>
       <Box>
-        <h1>로그인</h1>
-        <form onSubmit={login} ref={formRef}>
-          <label>사용자 이름</label>
-          <input
-            type="text"
-            name="id"
-            placeholder='사용자 이름을 입력해주세요.'
-            required
-          />
-          <label>비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            placeholder='비밀번호를 입력해주세요.'
-            required
-          />
-          <ButtonGroup>
-            <Button type="submit">로그인</Button>
-            <Link to="/signup"><Button>회원가입</Button></Link>
-          </ButtonGroup>
-        </form>
+        <label>Email</label>
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='이메일을 입력해주세요.'
+        />
       </Box>
-
       {
-        emailState
-          ?
-          <StyledSpan>email 형식이 아닙니다</StyledSpan>
-          :
-          <></>
-      }
+          emailState
+            ?
+            <StyledSpan>email 형식이 아닙니다</StyledSpan>
+            :
+            <></>
+        }
 
       <Box>
         <label>Password</label>
@@ -116,19 +100,17 @@ const Login = () => {
         />
       </Box>
       {
-        pwState
-          ?
-          <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
-          :
-          <></>
-      }
-
+          pwState
+            ?
+            <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
+            :
+            <></>
+        }
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
-        <Link to="/register"><Button>회원가입</Button></Link>
+        <Link to="/signUp"><Button>회원가입</Button></Link>
       </ButtonGroup>
-
     </Wrap>
   );
 };

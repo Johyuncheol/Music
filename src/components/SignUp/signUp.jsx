@@ -14,8 +14,8 @@ const Signup = () => {
     const { id, password } = formRef.current;
 
     try {
-      const response = await axios.post('http://3.38.191.164/register', {
-        id: id.value,
+      const response = await axios.post('/api/users/signup', {
+        username: id.value,
         password: password.value,
       });
 
