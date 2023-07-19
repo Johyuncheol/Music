@@ -36,32 +36,18 @@ const Header = () => {
         <Input onChange={(e) => { setValue(e.target.value) }} onKeyDown={handlePressEnter} />
       </InputDiv>
 
-
-
+      <HeaderOption>
       {
+        
         cookie.User === undefined
           ?
           <StyledLink to='/login'>로그인/회원가입</StyledLink>
           :
-          <StyledLink onClick={logOut}>로그아웃</StyledLink>
-
-
-      }
-
-      <StyledLink to='/mypage'>마이페이지</StyledLink>
-
-
-      <HeaderOption>
-        {cookie.id ? (
           <>
-            <StyledLink to="/" onClick={logOut}>
-              로그아웃
-            </StyledLink>
-            <StyledLink to="/mypage">마이페이지</StyledLink>
+          <StyledLink to='/mypage'>마이페이지</StyledLink>
+          <StyledLink onClick={logOut}>로그아웃</StyledLink>
           </>
-        ) : (
-          <StyledLink to="/login">로그인</StyledLink>
-        )}
+      }
       </HeaderOption>
     </HeaderDiv>
   );

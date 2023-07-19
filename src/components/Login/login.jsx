@@ -44,16 +44,17 @@ const Login = () => {
     // 로그인 로직
 
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
-    axios.post('/api/users/login', { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
+    axios.post( `${process.env.product.REACT_APP_DB_HOST}/api/users/login`, { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
       .then(response => {
         console.log(response);
-        if (response.status === 201) {
+        if (response.status === 200) {
           //토큰의 유효시간 부여
           /*             let expires = new Date();
                       expires.setMinutes(expires.getMinutes() + 1) */
-          /*  console.log(response.data.token); */
+           console.log(response.headers.authorization.split(" ")[1]);
+           const Token= response.headers.authorization.split(" ")[1];
 
-          setCookie('User', response.data.token, {
+          setCookie('User', Token, {
             path: "/",
             expire: 0
           });
