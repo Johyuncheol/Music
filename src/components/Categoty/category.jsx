@@ -37,8 +37,10 @@ const Category = () => {
         return (
             <Box>
                 <TitleBox>
+
                     <Span>◎ {item.title}</Span>
                     <StyledLink to={`/detail/${item.postId}`}> . . . </StyledLink>
+
                 </TitleBox>
 
                 <ContentBox>
@@ -47,11 +49,15 @@ const Category = () => {
                     </Player>
                     
                 </ContentBox>
+
                     <Option>
+
                         <button onClick={()=>PostLike(item.postId)}>좋아요 {item.likes}</button>
+
                         {
                             console.log(item)
                         }
+
                             <span>
                                 {`댓글 수 +${item.commentList==null
                                         ? 0
@@ -59,7 +65,10 @@ const Category = () => {
                                     }`
                                 }
                                 </span>
+
                     </Option>
+ 
+
 
 
 
@@ -154,6 +163,7 @@ export const Option = styled.div`
 export const StyledLink = styled(Link)`
     text-decoration:none;
     color:aliceblue;
+
     font-size:20px;
  `
 
@@ -161,5 +171,6 @@ export const Span = styled.span`
     width:80%;
     text-decoration:none;
     color:aliceblue;
+
 
  `

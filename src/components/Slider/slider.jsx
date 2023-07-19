@@ -12,7 +12,9 @@ const SlideComponent = () => {
 
 
     const getPicsOnURL = async() => {
+
         
+
         if (data !== undefined) {
             console.log(data);
             const Recent50 = data.slice(0, 49);

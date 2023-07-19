@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { getPosts } from '../../api/posts';
 import { useNavigate } from 'react-router-dom';
 
+
 const MainContent = () => {
     const navigate=useNavigate();
     const [top5Data, setTop5Data] = useState([]);
@@ -116,31 +117,29 @@ const MainContent = () => {
             </SlideSection>
         </Div>
     );
+
 };
 
 export default MainContent;
 
 export const Div = styled.div`
-    color:aliceblue;
-    padding:3px;
-`
+  color: aliceblue;
+  padding: 3px;
+`;
 
 export const Contents = styled.div`
-    display: grid;
-    grid-template-columns: 48% 1% 48%;
-    grid-gap: 1vw;
-    background-color:#26282d;
-    padding:5%;
-
-`
+  display: grid;
+  grid-template-columns: 48% 1% 48%;
+  grid-gap: 1vw;
+  background-color: #26282d;
+  padding: 5%;
+`;
 
 export const Box = styled.div`
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-
-   
-`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 export const Box2 = styled.div`
     display:flex;
@@ -151,11 +150,11 @@ export const Box2 = styled.div`
 `
 
 export const Img = styled.img`
-    width:95%;
- 
-`
+  width: 95%;
+`;
 
 export const Item = styled.div`
+
  background-color:#31343a;
  padding:10px;
 &:hover{
@@ -171,7 +170,38 @@ export const SlideSection = styled.div`
 export const Span = styled.span`
     display:flex;
 
-    margin: 0 0 3% 6%;
+
+  background-color: #31343a;
+  padding: 10px;
+  overflow: hidden;
+  display: flex; /* 추가 */
+  align-items: center; /* 추가 */
+  gap: 10px; /* 추가 (원하는 간격으로 조절) */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 400px; /* 원하는 글자수에 맞게 조절 */
+`;
+export const Title = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px; /* 원하는 글자수에 맞게 조절 */
+`;
+
+export const CustomLink = styled(Link)`
+  color: #00a8ff;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const TruncatedText = styled.span`
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 340px; /* 원하는 글자수에 맞게 조절 */
+`;
+
 
 
     color:aliceblue;
@@ -203,3 +233,4 @@ export const TruncatedText = styled.div`
 export const Top5Item = styled.div`
     
 `;
+

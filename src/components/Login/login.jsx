@@ -14,13 +14,13 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
-  const [emailState, setEmailState] = useState(true);
+  const [emailState, setEmailState] = useState(false);
   const [password, setPassword] = useState('');
-  const [pwState, setPwState] = useState(true);
+  const [pwState, setPwState] = useState(false);
 
   //const history = useHistory();
 
-  const checkFrame = () => {
+/*   const checkFrame = () => {
     const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}[.]');
     if (regex.test(email)) setEmailState(false);
     else setEmailState(true);
@@ -33,7 +33,7 @@ const Login = () => {
   useEffect(() => {
     checkFrame()
   }, [email, password])
-
+ */
 
   const handleLogin = () => {
 
@@ -47,6 +47,7 @@ const Login = () => {
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
     axios.post('/api/users/login', { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
       .then(response => {
+
         if (response.status === 200) {
           setCID('userID',email);
           const Token= response.headers.authorization
@@ -55,6 +56,7 @@ const Login = () => {
             expire: 0
           });
           console.log(Token)
+
           alert("로그인!");
           
           navigate("/")
@@ -107,7 +109,7 @@ const Login = () => {
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
-        <Link to="/register"><Button>회원가입</Button></Link>
+        <Link to="/signUp"><Button>회원가입</Button></Link>
       </ButtonGroup>
     </Wrap>
   );

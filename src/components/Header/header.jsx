@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useCookies } from 'react-cookie';
+
 import { useNavigate } from 'react-router-dom';
 import { inMypage } from '../../api/posts';
 
 const Header = () => {
 
-    const navigate=useNavigate();
-    const [cookie, setCookie, removeCookie] = useCookies(['User']);
+  const navigate = useNavigate();
+  const [cookie, setCookie, removeCookie] = useCookies(['User']);
 
-    const [value,setValue] = useState('');
+  const [value, setValue] = useState('');
 
-    const logOut = () => {
-        console.log(cookie.User)
-        removeCookie('User');
-    }
+  const logOut = () => {
+    console.log(cookie.User)
+    removeCookie('User');
+  }
 
     const handlePressEnter = e => {
         if (e.key === 'Enter') {
@@ -61,7 +62,10 @@ const Header = () => {
 
         </HeaderDiv>
     );
+
 };
+
+
 
 export default Header;
 

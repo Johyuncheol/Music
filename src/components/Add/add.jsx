@@ -51,6 +51,7 @@ const Add = () => {
 /*         mutation.mutate(newPost) */
         addPosts(newPost,cookie.User)
         navigate(-1);
+
     }
 
 
@@ -100,6 +101,8 @@ const Add = () => {
             </Div>
 
         </AddSection>
+
+        
     );
 };
 
