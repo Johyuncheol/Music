@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
-import { styled } from "styled-components";
-import SlideComponent from "../Slider/slider";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useRef } from 'react';
+import { styled } from 'styled-components';
+import SlideComponent from '../Slider/slider';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getPosts } from '../../api/posts';
+
 
 const MainContent = () => {
   const [top5Data, setTop5Data] = useState([]);
@@ -17,7 +20,7 @@ const MainContent = () => {
 
   useEffect(() => {
     fetchTop5Data();
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (top5Data.length > 0) {
@@ -44,7 +47,7 @@ const MainContent = () => {
         ...prevParams,
         id: videoId,
       }));
-      setTitle(top5Data[0].title); 
+      setTitle(top5Data[0].title);
     }
   };
 
@@ -79,15 +82,17 @@ const MainContent = () => {
 
         <Box>
           <div>좋아요 TOP 5</div>
-          
+
           {top5Data.map((item, index) => (
+
            <Item key={item.postId}>
            {`${index + 1}. `}<CustomLink to={`/detail/${item.postId}`}>
   <TruncatedText>{item.title}</TruncatedText>
 </CustomLink>
          </Item>
+
           ))}
-         
+
         </Box>
       </Contents>
       <SlideComponent />
@@ -121,6 +126,7 @@ export const Img = styled.img`
 `;
 
 export const Item = styled.div`
+
   background-color: #31343a;
   padding: 10px;
   overflow: hidden;
@@ -151,4 +157,5 @@ export const TruncatedText = styled.span`
   text-overflow: ellipsis;
   max-width: 340px; /* 원하는 글자수에 맞게 조절 */
 `;
+
 

@@ -11,6 +11,8 @@ import Login from '../components/Login/login';
 
 import SignUp from '../components/SignUp/signUp';
 import NonExistent from './NonExistent';
+import Search from '../components/Search/search';
+import ToUp from '../components/ToUp/toUp';
 
 
 const Main = () => {
@@ -22,7 +24,7 @@ const Main = () => {
                     <Route path="/" element={<MainContent />} />
 
                     {/*  검색 및 카테고리별 출력은 형태가 같다 ..*/}
-                    <Route path="/search/:id" element={<Category />} />
+                    <Route path="/search/:id" element={<Search />} />
                     <Route path="/posts/:id" element={<Category />} />
   
                     <Route path="/detail/:id" element={<Detail />} />
@@ -39,7 +41,9 @@ const Main = () => {
 
 
                 </Routes>
+                
             </ContentSection>
+            <ToUp/>
         </Back>
     );
 };
@@ -48,7 +52,7 @@ export default Main;
 
 export const Back = styled.div`
     display: grid;
-    grid-template-columns: 10vw 80vw;
+    grid-template-columns: 10vw 80vw 1vw;
     grid-gap: 1vw;
     background-color:#26282d;
     padding:3%;

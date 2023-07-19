@@ -1,23 +1,17 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { getPosts } from '../../api/posts';
+import { searchPosts } from '../../api/posts';
 import { useQueries, useQuery } from 'react-query';
 import { useParams,Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
-const Category = () => {
+const Search = () => {
     const params = useParams();
-    console.log(params["*"])// 페이지 id 
-
-    let key='';
-    if(params.id=='ALL') key='posts' 
-    else key = `/posts/category/${params.id}`
 
     //전체 , 카테고리별 조회일 때
-    const { isLoading, isError, data } = useQuery(`${params.id}`, () => getPosts(key));
+    const { isLoading, isError, data } = useQuery(`${params.id}`, () => searchPosts(params.id));
     console.log(data);
 
-    // 데이터 통신 상태 출력 
     if (isLoading) {
         return <div>로딩 중...</div>
     }
@@ -30,10 +24,8 @@ const Category = () => {
         return (
             <Box>
                 <TitleBox>
-
-                    <Span>◎ {item.title}</Span>
-                    <StyledLink to={`/detail/${item.postId}`}> . . . </StyledLink>
-
+                    ◎ {item.title}
+                    <StyledLink to={`/detail/${item.postId}`}> 세부페이지 </StyledLink>
                 </TitleBox>
 
                 <ContentBox>
@@ -42,26 +34,14 @@ const Category = () => {
                     </Player>
                     
                 </ContentBox>
-
-                    <Option>
-
+{/*                     <Option>
                         <button>좋아요 +30</button>
                         {
                             console.log(item)
                         }
-
-                            <span>
-                                {`댓글 수 +${item.commentList==null
-                                        ? 0
-                                        : item.commentList.length
-                                    }`
-                                }
-                                </span>
-
+                            <span>{`댓글 수 +${item.comments.length}`}</span>
                     </Option>
- 
-
-
+ */}
 
 
                 <TitleBox>
@@ -85,7 +65,7 @@ const Category = () => {
     );
 };
 
-export default Category;
+export default Search;
 
 export const Wrap = styled.div`
     display:flex;
@@ -111,6 +91,7 @@ export const Box = styled.div`
     height:100%;
     min-height:50px;
     gap :10px;
+    padding:10px;
 
     border-radius:10px;
     background-color:#303238;
@@ -123,8 +104,6 @@ export const TitleBox = styled.div`
     align-items:center;
     margin-top:10px;
     min-height:50px;
-
-    padding:3%;
 
     border-bottom: 1px solid #555962;
 `
@@ -141,8 +120,10 @@ export const Player = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-
+    margin-bottom:5%;
+    margin-top:5%;
     width:100%;
+    max-width:700px;
 
     
 `
@@ -155,14 +136,4 @@ export const Option = styled.div`
 export const StyledLink = styled(Link)`
     text-decoration:none;
     color:aliceblue;
-
-    font-size:20px;
- `
-
-export const Span = styled.span`
-    width:80%;
-    text-decoration:none;
-    color:aliceblue;
-
-
  `

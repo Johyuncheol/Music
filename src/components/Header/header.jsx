@@ -1,26 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useCookies } from 'react-cookie';
 
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['id']);
 
-  const handleLogout = () => {
-    removeCookie('id'); // 로그아웃 시 쿠키 삭제
+  const navigate = useNavigate();
+  const [cookie, setCookie, removeCookie] = useCookies(['User']);
+
+  const [value, setValue] = useState('');
+
+  const logOut = () => {
+    console.log(cookie.User)
+    removeCookie('User');
+  }
+
+  const handlePressEnter = e => {
+    if (e.key === 'Enter') {
+      navigate(`/search/${value}`)
+    }
   };
 
   return (
     <HeaderDiv>
       <Title>
-        <StyledLink to="/">home</StyledLink>
+        <StyledLink to='/'>
+          000
+        </StyledLink>
       </Title>
 
       <InputDiv>
         <span>search :</span>
-        <Input />
+        <Input onChange={(e) => { setValue(e.target.value) }} onKeyDown={handlePressEnter} />
       </InputDiv>
+
+
+
+      {
+        cookie.User === undefined
+          ?
+          <StyledLink to='/login'>로그인/회원가입</StyledLink>
+          :
+          <StyledLink onClick={logOut}>로그아웃</StyledLink>
+
+
+      }
+
+      <StyledLink to='/mypage'>마이페이지</StyledLink>
+
 
       <HeaderOption>
         {cookies.id ? (

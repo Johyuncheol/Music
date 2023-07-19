@@ -1,27 +1,48 @@
 import axios from "axios";
 
-export const getPosts = async(id)=>{
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`);
-    console.log(response);
-    //여기는 임시적으로 필터링 하는곳 백엔드에서 해서 줄거임 
-    if(id==='all') return response.data;
-    let aa;
-    if(isNaN(id)){
-         aa = response.data.filter((item)=>{
-            return  item.category==id;
-         })
-    }
-    else{
-        aa = response.data.filter((item)=>{
-            return  item.id==id;
-         })
-    }
 
+//전체 / 카테고리별 조회 
+export const getPosts = async(key)=>{
+    const response = await axios.get(`/api/${key}`);
+    console.log(response.data);
+    return response.data; 
 
-    console.log(aa)
-    return aa;
 }
 
+//선택 게시글 조회
+
+export const getOnePost = async(key)=>{
+    const response = await axios.get(`/api/posts/${key}`);
+    console.log(response.data);
+    return response.data; 
+}
+
+
+//게시글 등록
 export const addPosts = async(newPost)=>{
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/post`,newPost);
+    console.log(newPost)
+    const response =await axios.post(`/api/posts`,newPost);
+    console.log(response);
+}
+
+//게시글 검색(제목으로)
+export const searchPosts = async(id)=>{
+    const response =await axios.get(`/api/posts/search/${id}`);
+    console.log(response);
+    return response.data;
+}
+
+// 댓글 등록 
+export const addComment = async(id,comment)=>{
+    console.log(comment)
+    const response =await axios.post(`/api/posts/${id}/comments`,comment);
+    console.log(response);
+/*     return response.data; */
+}
+
+// 댓글 삭제 
+export const delComment = async(id)=>{
+    const response =await axios.delete(`/api/comments/${id}`);
+    console.log(response);
+/*     return response.data; */
 }
