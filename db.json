@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode",
+      "category": "ballad",
+      "content": "내용1",
+      "yUrl": "https://youtu.be/pAJwXDzCEC0"
+    },
+    {
+      "id": 2,
+      "title": "json-server2",
+      "author": "typicode",
+      "category": "ballad",
+      "yUrl": "https://youtu.be/_md16sTcnPM"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "users": {
+    "id": "ㄷㅅㅈㅅ",
+    "password": "ㅈetwet"
+  }
+}

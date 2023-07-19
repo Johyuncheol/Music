@@ -6,105 +6,154 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getPosts } from '../../api/posts';
 
+
 const MainContent = () => {
+  const [top5Data, setTop5Data] = useState([]);
+  const [params, setParams] = useState({
+    key: "AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w",
+    part: "snippet",
+    id: '', // 동적으로 추출된 ID를 할당하기 위해 초기값은 빈 문자열로 설정
+    maxResults: 20,
+  });
+  const [pic, setPic] = useState("");
+  const [title, setTitle] = useState("");
 
-    const [params, setParams] = useState({
-        key: 'AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w',
-        part: 'snippet',
-        id: 'Iv1cOgYEGgM', //정규식으로 받아온 URL의 v=뒷부분을 가져오자
-        maxResults: 20,
-    });
+  useEffect(() => {
+    fetchTop5Data();
+  }, []);
 
-    const [pic, setPic] = useState('')
+  useEffect(() => {
+    if (top5Data.length > 0) {
+      extractVideoIdFromUrl();
+    }
+  }, [top5Data]);
 
-    useEffect(() => {
-        axios.get('https://www.googleapis.com/youtube/v3/videos', { params })
-            .then((res) => {
-                console.log(res.data)
-                console.log(res.data.items['0'].snippet.thumbnails.standard.url);
-                setPic(res.data.items['0'].snippet.thumbnails.maxres.url)
-            })
-    }, [])
+  const fetchTop5Data = async () => {
+    try {
+      const response = await axios.get("/api/posts/top5");
+      console.log(response.data);
+      setTop5Data(response.data);
+    } catch (error) {
+      console.error("상위 5개 데이터 불러오는 중 오류 발생", error);
+    }
+  };
 
+  const extractVideoIdFromUrl = () => {
+    if (top5Data.length > 0) {
+      const youtubeLink = top5Data[0].yurl;
 
+      const videoId = youtubeLink.split("v=")[1];
+      setParams((prevParams) => ({
+        ...prevParams,
+        id: videoId,
+      }));
+      setTitle(top5Data[0].title);
+    }
+  };
 
-    return (
-        <Div>
-            <Contents>
-                <Box>
-                    <div>MOST</div>
-                    <Link to={`/detail`}><Img src={pic}></Img></Link>
-                    <div>제목이 들어갑니다</div>
-                </Box>
+  useEffect(() => {
+    if (params.id) {
+      // 동영상 ID가 할당되면 API 요청 수행
+      axios
+        .get("https://www.googleapis.com/youtube/v3/videos", { params })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data.items[0].snippet.thumbnails.standard.url);
+          setPic(res.data.items[0].snippet.thumbnails.maxres.url);
+        })
+        .catch((error) => {
+          console.error("유튜브 API 요청 실패", error);
+        });
+    }
+  }, [params]);
 
-                <hr></hr>
+  return (
+    <Div>
+      <Contents>
+        <Box>
+          <div>MOST</div>
+          <Link to={`/detail`}>
+            <Img src={pic}></Img>
+          </Link>
+          <Title>{title}</Title> {/* 수정된 부분 */}
+        </Box>
 
-                <Box>
-                    <div>TOP 5</div>
-                    <Item>1. top</Item>
-                    <Item>2. top</Item>
-                    <Item>3. top</Item>
-                    <Item>4. top</Item>
-                    <Item>5. top</Item>
-                </Box>
+        <hr></hr>
 
-            </Contents>
-            <slideSection>
-                <Span>최근 등록</Span>
- 
-                <SlideComponent />
-            </slideSection>
-        </Div>
-    );
+        <Box>
+          <div>좋아요 TOP 5</div>
+
+          {top5Data.map((item, index) => (
+            <Item key={item.postId}>
+              {`${index + 1}. `}<CustomLink to="/">
+                <TruncatedText>{item.title}</TruncatedText>
+              </CustomLink>
+            </Item>
+          ))}
+
+        </Box>
+      </Contents>
+      <SlideComponent />
+    </Div>
+  );
 };
 
 export default MainContent;
 
 export const Div = styled.div`
-    color:aliceblue;
-    padding:3px;
-`
+  color: aliceblue;
+  padding: 3px;
+`;
 
 export const Contents = styled.div`
-    display: grid;
-    grid-template-columns: 48% 1% 48%;
-    grid-gap: 1vw;
-    background-color:#26282d;
-    padding:5%;
-
-`
+  display: grid;
+  grid-template-columns: 48% 1% 48%;
+  grid-gap: 1vw;
+  background-color: #26282d;
+  padding: 5%;
+`;
 
 export const Box = styled.div`
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-
-   
-`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 export const Img = styled.img`
-    width:95%;
- 
-`
+  width: 95%;
+`;
 
 export const Item = styled.div`
- background-color:#31343a;
- padding:10px;
-&:hover{
-    background-color:#3e4149;
-}
-`
 
-export const slideSection = styled.div`
-    display:flex;
-`
+  background-color: #31343a;
+  padding: 10px;
+  overflow: hidden;
+  display: flex; /* 추가 */
+  align-items: center; /* 추가 */
+  gap: 10px; /* 추가 (원하는 간격으로 조절) */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 400px; /* 원하는 글자수에 맞게 조절 */
+`;
+export const Title = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px; /* 원하는 글자수에 맞게 조절 */
+`;
 
-export const Span = styled.span`
-    display:flex;
+export const CustomLink = styled(Link)`
+  color: #00a8ff;
+  text-decoration: none;
+  cursor: pointer;
+`;
 
-    margin: 0 0 3% 6%;
+export const TruncatedText = styled.span`
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 340px; /* 원하는 글자수에 맞게 조절 */
+`;
 
 
-    color:aliceblue;
- 
-`

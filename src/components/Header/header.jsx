@@ -2,58 +2,69 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useCookies } from 'react-cookie';
+
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
-    const navigate=useNavigate();
-    const [cookie, setCookie, removeCookie] = useCookies(['User']);
+  const navigate = useNavigate();
+  const [cookie, setCookie, removeCookie] = useCookies(['User']);
 
-    const [value,setValue] = useState('');
+  const [value, setValue] = useState('');
 
-    const logOut = () => {
-        console.log(cookie.User)
-        removeCookie('User');
+  const logOut = () => {
+    console.log(cookie.User)
+    removeCookie('User');
+  }
+
+  const handlePressEnter = e => {
+    if (e.key === 'Enter') {
+      navigate(`/search/${value}`)
     }
+  };
 
-    const handlePressEnter = e => {
-        if (e.key === 'Enter') {
-            navigate(`/search/${value}`)
-        }
-      };
+  return (
+    <HeaderDiv>
+      <Title>
+        <StyledLink to='/'>
+          000
+        </StyledLink>
+      </Title>
 
-    return (
-        <HeaderDiv>
-            <Title>
-                <StyledLink to='/'>
-                    000
-                </StyledLink>
-            </Title>
-
-            <InputDiv>
-                <span>search :</span>
-                <Input onChange={(e)=>{setValue(e.target.value)}} onKeyDown={handlePressEnter}/>
-            </InputDiv>
-
-            <HeaderOption>
-
-                {
-                    cookie.User ===undefined
-                        ?
-                        <StyledLink to='/login'>로그인/회원가입</StyledLink>
-                        :
-                        <StyledLink onClick={logOut}>로그아웃</StyledLink>
+      <InputDiv>
+        <span>search :</span>
+        <Input onChange={(e) => { setValue(e.target.value) }} onKeyDown={handlePressEnter} />
+      </InputDiv>
 
 
-                }
 
-                <StyledLink to='/mypage'>마이페이지</StyledLink>
+      {
+        cookie.User === undefined
+          ?
+          <StyledLink to='/login'>로그인/회원가입</StyledLink>
+          :
+          <StyledLink onClick={logOut}>로그아웃</StyledLink>
 
 
-            </HeaderOption>
+      }
 
-        </HeaderDiv>
-    );
+      <StyledLink to='/mypage'>마이페이지</StyledLink>
+
+
+      <HeaderOption>
+        {cookies.id ? (
+          <>
+            <StyledLink to="/" onClick={handleLogout}>
+              로그아웃
+            </StyledLink>
+            <StyledLink to="/mypage">마이페이지</StyledLink>
+          </>
+        ) : (
+          <StyledLink to="/login">로그인</StyledLink>
+        )}
+      </HeaderOption>
+    </HeaderDiv>
+  );
 };
 
 export default Header;

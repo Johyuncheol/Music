@@ -8,7 +8,8 @@ import Add from '../components/Add/add';
 import Detail from '../components/Detail/detail';
 import Side from '../components/Side/side';
 import Login from '../components/Login/login';
-import Register from '../components/Register/register';
+
+import SignUp from '../components/SignUp/signUp';
 import NonExistent from './NonExistent';
 import Search from '../components/Search/search';
 import ToUp from '../components/ToUp/toUp';
@@ -30,7 +31,7 @@ const Main = () => {
                     <Route path="/mypage" element={<MyPage />} />
 
                     <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/signUp" element={<SignUp />} />
 
                     <Route path="/add" element={<Add />} />
 

@@ -71,25 +71,40 @@ const Login = () => {
   };
 
 
+
   return (
     <Wrap>
-      <h1>로그인</h1>
       <Box>
-        <label>Email</label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder='이메일을 입력해주세요.'
-        />
+        <h1>로그인</h1>
+        <form onSubmit={login} ref={formRef}>
+          <label>사용자 이름</label>
+          <input
+            type="text"
+            name="id"
+            placeholder='사용자 이름을 입력해주세요.'
+            required
+          />
+          <label>비밀번호</label>
+          <input
+            type="password"
+            name="password"
+            placeholder='비밀번호를 입력해주세요.'
+            required
+          />
+          <ButtonGroup>
+            <Button type="submit">로그인</Button>
+            <Link to="/signup"><Button>회원가입</Button></Link>
+          </ButtonGroup>
+        </form>
       </Box>
+
       {
-          emailState
-            ?
-            <StyledSpan>email 형식이 아닙니다</StyledSpan>
-            :
-            <></>
-        }
+        emailState
+          ?
+          <StyledSpan>email 형식이 아닙니다</StyledSpan>
+          :
+          <></>
+      }
 
       <Box>
         <label>Password</label>
@@ -101,18 +116,19 @@ const Login = () => {
         />
       </Box>
       {
-          pwState
-            ?
-            <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
-            :
-            <></>
-        }
+        pwState
+          ?
+          <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
+          :
+          <></>
+      }
 
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
         <Link to="/register"><Button>회원가입</Button></Link>
       </ButtonGroup>
+
     </Wrap>
   );
 };
