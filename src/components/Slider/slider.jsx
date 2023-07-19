@@ -11,7 +11,11 @@ const SlideComponent = () => {
     const { isLoading, isError, data } = useQuery(`as`, () => getPosts('posts'));
 
 
-    const getPicsOnURL = () => {
+    const getPicsOnURL = async() => {
+        await setTimeout(() => {
+            console.log("Delayed for 1 second.");
+          }, "1000");
+          
         if (data !== undefined) {
             console.log(data);
             const Recent50 = data.slice(0, 49);
