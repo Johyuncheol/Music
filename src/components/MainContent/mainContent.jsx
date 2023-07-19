@@ -8,7 +8,7 @@ import { getPosts } from '../../api/posts';
 
 
 const MainContent = () => {
-/*   const [top5Data, setTop5Data] = useState([]);
+  const [top5Data, setTop5Data] = useState([]);
   const [params, setParams] = useState({
     key: "AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w",
     part: "snippet",
@@ -33,6 +33,10 @@ const MainContent = () => {
       const response = await axios.get("/api/posts/top5");
       console.log(response.data);
       setTop5Data(response.data);
+      await setTimeout(() => {
+        console.log("Delayed for 1 second.");
+      }, "1000");
+      
     } catch (error) {
       console.error("상위 5개 데이터 불러오는 중 오류 발생", error);
     }
@@ -65,12 +69,12 @@ const MainContent = () => {
           console.error("유튜브 API 요청 실패", error);
         });
     }
-  }, [params]); */
+  }, [params]);
 
   return (
     <Div>
       <Contents>
-{/*         <Box>
+        <Box>
           <div>MOST</div>
           <Link to={`/detail/${top5Data[0]?.postId}`}>
             <Img src={pic}></Img>
@@ -84,7 +88,7 @@ const MainContent = () => {
           <div>좋아요 TOP 5</div>
 
           {
-            top5Data !== null
+            top5Data !== undefined
               ?
               top5Data?.map((item, index) => (
 
@@ -100,7 +104,7 @@ const MainContent = () => {
           }
 
 
-        </Box> */}
+        </Box>
       </Contents>
              <SlideComponent /> 
     </Div>
