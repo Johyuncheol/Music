@@ -8,7 +8,7 @@ import { getPosts } from '../../api/posts';
 
 
 const MainContent = () => {
-  /* const [top5Data, setTop5Data] = useState([]);
+  const [top5Data, setTop5Data] = useState([]);
   const [params, setParams] = useState({
     key: "AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w",
     part: "snippet",
@@ -39,7 +39,7 @@ const MainContent = () => {
   };
 
   const extractVideoIdFromUrl = () => {
-    if (top5Data.length > 0) {
+    if (top5Data!== undefined) {
       const youtubeLink = top5Data[0].yurl;
 
       const videoId = youtubeLink.split("v=")[1];
@@ -65,17 +65,17 @@ const MainContent = () => {
           console.error("유튜브 API 요청 실패", error);
         });
     }
-  }, [params]); */
+  }, [params]);
 
   return (
     <Div>
       <Contents>
-{/*         <Box>
+        <Box>
           <div>MOST</div>
           <Link to={`/detail/${top5Data[0]?.postId}`}>
             <Img src={pic}></Img>
           </Link>
-          <Title>{title}</Title> 
+          <Title>{title}</Title>
         </Box>
 
         <hr></hr>
@@ -83,17 +83,24 @@ const MainContent = () => {
         <Box>
           <div>좋아요 TOP 5</div>
 
-          {top5Data?.map((item, index) => (
+          {
+            top5Data !== undefinded
+              ?
+              top5Data?.map((item, index) => (
 
-            <Item key={item.postId}>
-              {`${index + 1}. `}<CustomLink to={`/detail/${item.postId}`}>
-                <TruncatedText>{item.title}</TruncatedText>
-              </CustomLink>
-            </Item>
+                <Item key={item.postId}>
+                  {`${index + 1}. `}<CustomLink to={`/detail/${item.postId}`}>
+                    <TruncatedText>{item.title}</TruncatedText>
+                  </CustomLink>
+                </Item>
 
-          ))}
+              ))
+              :
+              <></>
+          }
 
-        </Box> */}
+
+        </Box>
       </Contents>
       {/*       <SlideComponent /> */}
     </Div>
