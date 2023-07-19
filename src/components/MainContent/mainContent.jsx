@@ -81,21 +81,21 @@ const MainContent = () => {
         <hr></hr>
 
         <Box>
-          <div>좋아요 TOP 5</div>
+{/*           <div>좋아요 TOP 5</div>
 
-          {top5Data.map((item, index) => (
+          {top5Data?.map((item, index) => (
 
-           <Item key={item.postId}>
-           {`${index + 1}. `}<CustomLink to={`/detail/${item.postId}`}>
-  <TruncatedText>{item.title}</TruncatedText>
-</CustomLink>
-         </Item>
+            <Item key={item.postId}>
+              {`${index + 1}. `}<CustomLink to={`/detail/${item.postId}`}>
+                <TruncatedText>{item.title}</TruncatedText>
+              </CustomLink>
+            </Item>
 
           ))}
-
+ */}
         </Box>
       </Contents>
-{/*       <SlideComponent /> */}
+      {/*       <SlideComponent /> */}
     </Div>
   );
 };
