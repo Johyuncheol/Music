@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 //import { useHistory } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [cookie, setCookie] = useCookies(['User']);
+  const [cookie, setCookie] = useCookies(["User"]);
 
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailState, setEmailState] = useState(false);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [pwState, setPwState] = useState(false);
 
   //const history = useHistory();
 
-/*   const checkFrame = () => {
+  /*   const checkFrame = () => {
     const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}[.]');
     if (regex.test(email)) setEmailState(false);
     else setEmailState(true);
@@ -35,7 +35,6 @@ const Login = () => {
  */
 
   const handleLogin = () => {
-
     if (emailState) {
       alert("이메일 형식이 아닙니다");
       return -1;
@@ -44,31 +43,31 @@ const Login = () => {
     // 로그인 로직
 
     // 로그인 로직을 구현하고 성공 시에 다음 경로로 이동(메인페이지)
-    axios.post('/api/users/login', { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
-      .then(response => {
+    axios
+      .post("/api/users/login", { username: email, password: password }) //로컬호스트가 아니라 주소가같아서 CORS 안켜도됨
+      .then((response) => {
         console.log(response);
-        if (response.status === 201) {
+        if (response.status === 200) {
           //토큰의 유효시간 부여
           /*             let expires = new Date();
                       expires.setMinutes(expires.getMinutes() + 1) */
-          /*  console.log(response.data.token); */
+          console.log(response.headers.authorization.split(" ")[1]);
+          const Token = response.headers.authorization.split(" ")[1];
 
-          setCookie('User', response.data.token, {
+          setCookie("User", Token, {
             path: "/",
-            expire: 0
+            expire: 0,
           });
 
           alert("로그인!");
-          navigate("/")
+          navigate("/");
         }
       })
 
-      .catch(error => {
-        alert(error.response.data.message)
+      .catch((error) => {
+        alert(error.response.data.message);
       });
-
   };
-
 
   return (
     <Wrap>
@@ -79,16 +78,10 @@ const Login = () => {
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder='이메일을 입력해주세요.'
+          placeholder="이메일을 입력해주세요."
         />
       </Box>
-      {
-          emailState
-            ?
-            <StyledSpan>email 형식이 아닙니다</StyledSpan>
-            :
-            <></>
-        }
+      {emailState ? <StyledSpan>email 형식이 아닙니다</StyledSpan> : <></>}
 
       <Box>
         <label>Password</label>
@@ -96,20 +89,16 @@ const Login = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder='비밀번호를 입력해주세요.'
+          placeholder="비밀번호를 입력해주세요."
         />
       </Box>
-      {
-          pwState
-            ?
-            <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
-            :
-            <></>
-        }
+      {pwState ? <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan> : <></>}
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
-        <Link to="/signUp"><Button>회원가입</Button></Link>
+        <Link to="/signUp">
+          <Button>회원가입</Button>
+        </Link>
       </ButtonGroup>
     </Wrap>
   );
@@ -155,10 +144,7 @@ const Button = styled.button`
   outline: none;
 `;
 
-
 const StyledSpan = styled.span`
-  color: #f44646;;
-  font-size:10px;
+  color: #f44646;
+  font-size: 10px;
 `;
-
-

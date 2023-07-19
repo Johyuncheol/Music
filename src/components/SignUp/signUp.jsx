@@ -19,7 +19,7 @@ const Signup = () => {
         password: password.value,
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log(response);
         navigate('/'); // 회원가입 후 이전 페이지로 이동
         alert('회원가입이 완료 되었습니다');
