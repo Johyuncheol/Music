@@ -37,3 +37,10 @@ export const addComment = async(id,comment)=>{
     console.log(response);
 /*     return response.data; */
 }
+
+// 댓글 삭제 
+export const delComment = async(id)=>{
+    const response =await axios.delete(`/api/comments/${id}`);
+    console.log(response);
+/*     return response.data; */
+}
