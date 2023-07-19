@@ -17,11 +17,35 @@ export const getOnePost = async(key)=>{
 
 
 //게시글 등록
-export const addPosts = async(newPost)=>{
+export const addPosts = async (newPost, token) => {
     console.log(newPost)
-    const response =await axios.post(`/api/posts`,newPost);
+    const response = await axios.post(`/api/posts`, newPost
+        , {
+            headers:
+            {
+                Authorization: token
+            }
+        }
+    );
     console.log(response);
 }
+
+//게시글 삭제
+export const delPosts = async (id,token) => {
+    const response = await axios.delete(`/api/posts/${id}`
+        , {
+            headers:
+            {
+                Authorization: token
+            }
+        }
+    );
+    console.log(response);
+}
+
+
+
+
 
 //게시글 검색(제목으로)
 export const searchPosts = async(id)=>{
@@ -31,16 +55,54 @@ export const searchPosts = async(id)=>{
 }
 
 // 댓글 등록 
-export const addComment = async(id,comment)=>{
-    console.log(comment)
-    const response =await axios.post(`/api/posts/${id}/comments`,comment);
+export const addComment = async (id, comment, token) => {
+    console.log(id,comment,token)
+    const response = await axios.post(`/api/comments`, comment
+    , {
+        headers:
+        {
+            Authorization: token
+        }
+    });
     console.log(response);
-/*     return response.data; */
+    /*     return response.data; */
 }
 
 // 댓글 삭제 
-export const delComment = async(id)=>{
-    const response =await axios.delete(`/api/comments/${id}`);
+export const delComment = async (id,token) => {
+    const response = await axios.delete(`/api/comments/${id}`
+    ,{
+        headers:
+        {
+            Authorization: token
+        }
+    });
+
     console.log(response);
-/*     return response.data; */
+    /*     return response.data; */
+}
+
+
+
+// 좋아요! 
+export const likePost = async (id,token) => {
+    const response = await axios.post(`/api/posts/${id}/likes`)
+
+    /*     return response.data; */
+}
+
+
+
+// 마이페이지 데이터 
+export const inMypage = async (token) => {
+    const response = await axios.get(`/api/users/mypage`
+    ,{
+        headers:
+        {
+            Authorization: token
+        }
+    });
+    console.log(response.data);
+    return response.data;
+
 }

@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
-const Add = () => {
+const Update = () => {
     const navigate = useNavigate();
     const [cookie] = useCookies(['User']);
 
@@ -50,7 +50,6 @@ const Add = () => {
     const SubmitNewPost = () => {
 /*         mutation.mutate(newPost) */
         addPosts(newPost,cookie.User)
-        navigate(-1);
     }
 
 
@@ -103,7 +102,7 @@ const Add = () => {
     );
 };
 
-export default Add;
+export default Update;
 
 
 export const AddSection = styled.div`

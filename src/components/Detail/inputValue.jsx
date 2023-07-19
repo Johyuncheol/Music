@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { addComment, getOnePost } from '../../api/posts';
 import { useMutation, useQueryClient, useQuery } from 'react-query';
+import { useCookies } from 'react-cookie';
 
 const InputValue = ({ id }) => {
+    const [cookie] = useCookies(['User']);
 
     console.log(id)
     const ChangeInputValue = (e, key) => {
@@ -18,7 +20,7 @@ const InputValue = ({ id }) => {
 
     //리액트 쿼리 관련 코드 
 
-    const mutation = useMutation(() => addComment(id, newComment), {
+    const mutation = useMutation(() => addComment(id, newComment,cookie.User), {
         onSuccess: () => {
             //싱크를 맞춰주는 부분, 하지만 추가를 별도의 페이지에서 하기에 필요는 없다...
             //페이지 전환하면서 다시 불러오기때문
@@ -37,11 +39,11 @@ const InputValue = ({ id }) => {
 
     return (
         <div>
-{/*             <input
+            <input // 추후에 로그인시 저장 된 값을 사용해서 넣자
                 value={newComment.username}
                 placeholder='username'
                 onChange={(e) => ChangeInputValue(e, 'username')}
-            /> */}
+            />
 
 
             <input

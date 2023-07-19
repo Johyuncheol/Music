@@ -1,33 +1,51 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { getOnePost } from '../../api/posts';
+import { getOnePost, delComment, delPosts } from '../../api/posts';
 import { useQuery } from 'react-query';
 import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
-import { delComment } from '../../api/posts';
 import InputValue from './inputValue';
 import { useMutation, useQueryClient } from 'react-query';
+import { useCookies } from 'react-cookie';
 
 const Detail = () => {
     const params = useParams();
     const navigate = useNavigate();
+
+    const [postState, setPostState] = useState(false);
+
     const [commentState, setCommentState] = useState(false);
 
     const { isLoading, isError, data } = useQuery(`${params.id}`, () => getOnePost(params.id));
 
+    const [cookie] = useCookies(['User']);
+
+    const [cID, setCID] = useCookies(['ID']);
+
+
     const queryClient = useQueryClient();
 
-    const CommentDel =(id)=>{
+
+    const CommentDel = (id) => {
         mutation.mutate(id);
     }
-    const mutation = useMutation((id) => delComment(id), {
+    const mutation = useMutation((id) => delComment(id, cookie.User), {
         onSuccess: () => {
 
             queryClient.invalidateQueries(`${params.id}`)
             console.log("성공")
         }
     })
+
+    const PostDel = () => {
+        delPosts(params.id, cookie.User);
+        navigate(-1);
+    }
+
+    const moveToUpdate = () => {
+
+    }
 
     // 데이터 통신 상태 출력 
     if (isLoading) {
@@ -88,12 +106,13 @@ const Detail = () => {
                                 return (
                                     <CommentBox>
                                         <CommentOption>
-                                        <StyledSpan>ID: {c.commentId}</StyledSpan>
-                                        <button onClick={()=>CommentDel(c.commentId)}>삭제</button>
+                                            <StyledSpan>ID: {c.commentId}</StyledSpan>
+
+                                            <button onClick={() => CommentDel(c.commentId)}>삭제</button>
                                         </CommentOption>
-                                        
+
                                         <StyledSpan>{c.content}</StyledSpan>
-                                        
+
                                     </CommentBox>
                                 );
 
@@ -109,7 +128,16 @@ const Detail = () => {
 
     return (
         <Wrap>
-            <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
+            <DetailOption>
+                <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
+{/*                 <StyledButton onClick={() => setPostState(!postState)}>{postState ? '완료' : '수정'}</StyledButton>
+ */}                {
+                    cID.userID==data.username 
+                    ? <StyledButton onClick={PostDel}>삭제하기</StyledButton>
+                    : <></>
+                }
+            </DetailOption>
+
             <Content>
                 {
                     <Card item={data} key={data.postId} />
@@ -253,4 +281,19 @@ export const StyledSpan = styled.span`
 export const CommentOption = styled.div`
     display:flex;
     justify-content:space-between;
+`
+
+
+export const DetailOption = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+`
+
+export const StyledButton = styled.button`
+    height:30%;
+    background-color: #555962;
+    &:hover{
+        background-color: #878c9c;
+    }
 `
