@@ -84,7 +84,7 @@ const MainContent = () => {
           <div>좋아요 TOP 5</div>
 
           {
-            top5Data !== undefinded
+            top5Data !== undefined
               ?
               top5Data?.map((item, index) => (
 
