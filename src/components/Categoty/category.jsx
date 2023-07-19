@@ -83,11 +83,15 @@ const Category = () => {
     return (
         <Wrap>
             {
+                Array.isArray(data)
+                ?
                 data?.map((item) => {
                     return (
                         <Card item={item} key={item.postId} />
                     )
                 })
+                :
+                <div>로딩중</div>
             }
         </Wrap>
     );
