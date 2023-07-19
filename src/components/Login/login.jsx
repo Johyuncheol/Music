@@ -52,11 +52,14 @@ const Login = () => {
           /*             let expires = new Date();
                       expires.setMinutes(expires.getMinutes() + 1) */
            console.log(response.headers.authorization.split(" ")[1]);
-           const Token= response.headers.authorization.split(" ")[1]
+/*            const Token= response.headers.authorization.split(" ")[1]
           setCookie('User', Token, {
             path: "/",
             expire: 0
-          });
+          }); */
+
+          const Token= response.headers.authorization
+          setCookie('User',Token);
 
           alert("로그인!");
           navigate("/")

@@ -48,7 +48,7 @@ const Add = () => {
 
     const SubmitNewPost = () => {
 /*         mutation.mutate(newPost) */
-        addPosts(newPost)
+        addPosts(newPost,cookie.User)
     }
 
 
