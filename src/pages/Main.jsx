@@ -9,7 +9,7 @@ import Detail from '../components/Detail/detail';
 import Side from '../components/Side/side';
 import Login from '../components/Login/login';
 
-import Signup from '../components/signUp/signUp';
+import Signup from '../components/SignUp/signUp';
 
 import NonExistent from './NonExistent';
 import Search from '../components/Search/search';
