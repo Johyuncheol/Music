@@ -34,12 +34,12 @@ const Signup = () => {
   // 회원 가입 함수
   const signup = async () => {
 
-    if (!emailState || email==='') {
+    if (emailState || email==='') {
       alert("이메일 형식이 아닙니다");
       return -1;
     }
 
-    if (!pwState || password==='') {
+    if (pwState || password==='') {
       alert("비밀번호 형식이 아닙니다");
       return -1;
     }
