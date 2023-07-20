@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 
 const InputValue = ({ id }) => {
     const [cookie] = useCookies(['User']);
+    const [cID, setCID] = useCookies(['ID']);
 
     console.log(id)
     const ChangeInputValue = (e, key) => {
@@ -32,20 +33,13 @@ const InputValue = ({ id }) => {
 
     const [newComment, setnewComment] = useState({//json은 noSQL이라 id 자동생성됨
         postId: id,
-        username: "",
+        username: cID,
         content: ""
     });
 
 
     return (
         <div>
-            <input // 추후에 로그인시 저장 된 값을 사용해서 넣자
-                value={newComment.username}
-                placeholder='username'
-                onChange={(e) => ChangeInputValue(e, 'username')}
-            />
-
-
             <input
                 value={newComment.content}
                 placeholder='comment'

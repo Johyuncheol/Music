@@ -62,10 +62,25 @@ const Detail = () => {
         return (
             <Box>
                 <TitleBox>
-                    ◎ {item.title}
+{/*                     ◎ {item.title} */}
+
+                    {
+                        postState
+                        ?
+                        <input type="text" />
+                        :
+                        `◎ ${item.title}`
+                    }
                 </TitleBox>
-                <TitleBox>
+                <TitleBox> {/* 수정페이지 진행중  */}
                     {item.content}
+                    {
+                        postState
+                        ?
+                        <input type="text" />
+                        :
+                        `${item.content}`
+                    }
                 </TitleBox>
                 <ContentSection>
                     <VideoSection>
@@ -106,7 +121,7 @@ const Detail = () => {
                                 return (
                                     <CommentBox>
                                         <CommentOption>
-                                            <StyledSpan>ID: {c.commentId}</StyledSpan>
+                                            <StyledSpan>ID: {c.username}</StyledSpan>
 
                                             <button onClick={() => CommentDel(c.commentId)}>삭제</button>
                                         </CommentOption>
@@ -130,10 +145,15 @@ const Detail = () => {
         <Wrap>
             <DetailOption>
                 <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
-                {/*                 <StyledButton onClick={() => setPostState(!postState)}>{postState ? '완료' : '수정'}</StyledButton>
- */}                {
+                
+                 {
                     cID.userID == data.username
-                        ? <StyledButton onClick={PostDel}>삭제하기</StyledButton>
+                        ? 
+                        <>
+                        <StyledButton onClick={() => setPostState(!postState)}>{postState ? '완료' : '수정'}</StyledButton>
+                        <StyledButton onClick={PostDel}>삭제하기</StyledButton>
+                        </>
+                        
                         : <></>
                 }
             </DetailOption>

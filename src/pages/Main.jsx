@@ -22,8 +22,8 @@ const Main = () => {
             <Side />
             <ContentSection>
                 <Routes>
-{/*                     <Route path="/" element={<MainContent />} />
- */}
+                    <Route path="/" element={<MainContent />} />
+
                     {/*  검색 및 카테고리별 출력은 형태가 같다 ..*/}
                     <Route path="/search/:id" element={<Search />} />
                     <Route path="/posts/:id" element={<Category />} />
