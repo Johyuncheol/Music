@@ -22,8 +22,8 @@ const Main = () => {
             <Side />
             <ContentSection>
                 <Routes>
-                    <Route path="/" element={<MainContent />} />
-
+{/*                     <Route path="/" element={<MainContent />} />
+ */}
                     {/*  검색 및 카테고리별 출력은 형태가 같다 ..*/}
                     <Route path="/search/:id" element={<Search />} />
                     <Route path="/posts/:id" element={<Category />} />
@@ -55,10 +55,11 @@ export default Main;
 
 export const Back = styled.div`
     display: grid;
+    justify-content:center;
     grid-template-columns: 10vw 80vw 1vw;
     grid-gap: 1vw;
     background-color:#26282d;
-    padding:3%;
+
  
 `
 
@@ -68,7 +69,7 @@ export const ContentSection = styled.div`
  border: 1px solid lightgrey;
  border-radius:10px;
  min-height:600px;
- padding : 4px;
+ 
 `
 
 

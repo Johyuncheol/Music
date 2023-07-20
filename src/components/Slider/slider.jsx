@@ -13,8 +13,6 @@ const SlideComponent = () => {
 
     const getPicsOnURL = async() => {
 
-        
-
         if (data !== undefined) {
             console.log(data);
             const Recent50 = data.slice(0, 49);
@@ -35,7 +33,7 @@ const SlideComponent = () => {
         Recent50.map(async (item) => {
 
             let params = {
-                key: 'AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w',
+                key: 'AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk',
                 part: 'snippet',
                 id: item.yID, //정규식으로 받아온 URL의 v=뒷부분을 가져오자
                 maxResults: 20,
@@ -47,12 +45,9 @@ const SlideComponent = () => {
                     if (res.data.items['0'] !== undefined) {
                         item['Thumbnails'] = res.data.items['0'].snippet.thumbnails.standard.url
                     }
-                    /*    Thumbnails.push(res.data.items['0'].snippet.thumbnails.standard.url) */
                 })
 
-/*                 await setTimeout(() => {
-                    console.log("Delayed for 1 second.");
-                }, "1000"); */
+
         })
 
         setPic(Recent50);
@@ -135,11 +130,20 @@ export const Div = styled.div`
     justify-content:center;
     gap :10px;
     padding-bottom:10%;
+    width:100%;
+
+    @media only screen and (min-width: 50px) {
+    width:90%;
+  }
+
+  @media only screen and (min-width: 700px) {
+    width:100%;
+}
     
 `
 
 export const Wrapper = styled.div`
-  width: 85%;
+  width: 70%;
   height: 200px;
   overflow: hidden;
 `
@@ -150,8 +154,20 @@ export const SlideWrapper = styled.div`
   height:100%;
 `
 export const Img = styled.img`
-  width: 25%;
+
   height: 200px;
+
+  @media only screen and (min-width: 100px) {
+    width:50%;
+  }
+
+  @media only screen and (min-width: 600px) {
+    width: 25%;
+}
+
+@media only screen and (min-width: 900px) {
+    width: 20%;
+}
 `
 export const StyledButton = styled.button`
     background-color:#26282d;

@@ -38,7 +38,7 @@ const Header = () => {
         <HeaderDiv>
             <Title>
                 <StyledLink to='/'>
-                    000
+                    Muzik is my life...
                 </StyledLink>
             </Title>
 
@@ -126,6 +126,9 @@ justify-content:right;
 align-items:center;
 gap :10px;
 color:#555962;
+
+width:30%;
+
  `
 
 export const StyledLink = styled(Link)`

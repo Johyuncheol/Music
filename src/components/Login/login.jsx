@@ -20,12 +20,13 @@ const Login = () => {
 
   //const history = useHistory();
 
-/*   const checkFrame = () => {
-    const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}[.]');
-    if (regex.test(email)) setEmailState(false);
+  const checkFrame = () => {
+    const IDRegex = new RegExp('[a-z0-9]+@[a-z]+[.][a-z]{2,3}');
+    if (IDRegex.test(email)) setEmailState(false);
     else setEmailState(true);
 
-    if (password.length >= 5) setPwState(false);
+    var PWRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/);
+    if (PWRegex.test(password)) setPwState(false);
     else setPwState(true);
 
   }
@@ -33,14 +34,19 @@ const Login = () => {
   useEffect(() => {
     checkFrame()
   }, [email, password])
- */
+
 
   const handleLogin = () => {
 
-/*     if (emailState) {
+    if (!emailState || email==='') {
       alert("이메일 형식이 아닙니다");
       return -1;
-    } */
+    }
+
+    if (!pwState || password==='') {
+      alert("비밀번호 형식이 아닙니다");
+      return -1;
+    }
 
     // 로그인 로직
 
@@ -49,22 +55,22 @@ const Login = () => {
       .then(response => {
 
         if (response.status === 200) {
-          setCID('userID',email);
-          const Token= response.headers.authorization
-          setCookie('User',Token,{
+          setCID('userID', email);
+          const Token = response.headers.authorization
+          setCookie('User', Token, {
             path: "/",
             expire: 0
           });
           console.log(Token)
 
           alert("로그인!");
-          
+
           navigate("/")
         }
       })
 
       .catch(error => {
-        alert(error.response.data.message)
+        alert('확인 후 다시 시도해주세요')
       });
 
   };
@@ -75,7 +81,7 @@ const Login = () => {
       <h1>로그인</h1>
       <Box>
         <label>Email</label>
-        <input
+        <StyledInput
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -83,16 +89,16 @@ const Login = () => {
         />
       </Box>
       {
-          emailState
-            ?
-            <StyledSpan>email 형식이 아닙니다</StyledSpan>
-            :
-            <></>
-        }
+        emailState
+          ?
+          <StyledSpan>email 형식이 아닙니다</StyledSpan>
+          :
+          <></>
+      }
 
       <Box>
         <label>Password</label>
-        <input
+        <StyledInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -100,12 +106,12 @@ const Login = () => {
         />
       </Box>
       {
-          pwState
-            ?
-            <StyledSpan>PW 5자리 이상으로 해주세요.</StyledSpan>
-            :
-            <></>
-        }
+        pwState
+          ?
+          <StyledSpan>PW 문자, 특수문자, 숫자포함 8자리 이상</StyledSpan>
+          :
+          <></>
+      }
 
       <ButtonGroup>
         <Button onClick={handleLogin}>로그인</Button>
@@ -119,6 +125,7 @@ export default Login;
 
 const Wrap = styled.div`
   display: flex;
+  align-items:center;
   color: aliceblue;
   flex-direction: column;
   padding: 5%;
@@ -132,11 +139,13 @@ const Box = styled.div`
   justify-content: center;
   color: aliceblue;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   height: 10vh;
   min-height: 50px;
   border-bottom: 2px solid darkolivegreen;
   gap: 10px;
+  
+  font-size:20px;
 `;
 
 const ButtonGroup = styled.div`
@@ -161,4 +170,6 @@ const StyledSpan = styled.span`
   font-size:10px;
 `;
 
-
+const StyledInput = styled.input`
+  font-size:20px;
+`

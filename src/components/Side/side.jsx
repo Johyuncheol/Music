@@ -42,8 +42,6 @@ border: 1px solid lightgrey;
 max-width:150px;
 border-radius:10px;
 
-
-
 `
 
 export const Title = styled.div`

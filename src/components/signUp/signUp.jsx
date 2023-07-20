@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -8,9 +8,42 @@ const Signup = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
+  const [email, setEmail] = useState('');
+  const [emailState, setEmailState] = useState(false);
+  const [password, setPassword] = useState('');
+  const [pwState, setPwState] = useState(false);
+
+  const checkFrame = () => {
+    const IDRegex = new RegExp('[a-z0-9]+@[a-z]+[.][a-z]{2,3}');
+    if (IDRegex.test(email)) setEmailState(false);
+    else setEmailState(true);
+
+    var PWRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/);
+    if (PWRegex.test(password)) setPwState(false);
+    else setPwState(true);
+
+  }
+
+  useEffect(() => {
+    checkFrame()
+  }, [email, password])
+
+
+
+
   // 회원 가입 함수
-  const signup = async (e) => {
-    e.preventDefault();
+  const signup = async () => {
+
+    if (!emailState || email==='') {
+      alert("이메일 형식이 아닙니다");
+      return -1;
+    }
+
+    if (!pwState || password==='') {
+      alert("비밀번호 형식이 아닙니다");
+      return -1;
+    }
+
     const { id, password } = formRef.current;
 
     try {
@@ -29,35 +62,56 @@ const Signup = () => {
       console.error(error);
       alert(error.response.data.message)
       id.value = '';
-      password.value='';
+      password.value = '';
     }
   };
 
   return (
     <Wrap>
+      <h1>회원가입</h1>
+
       <Box>
-        <h1>회원가입</h1>
-        <form onSubmit={signup} ref={formRef}>
-          <label>사용자 이름</label>
-          <input
-            type="text"
-            name="id"
-            placeholder='사용자 이름을 입력해주세요.'
-            required
-          />
-          <label>비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            placeholder='비밀번호를 입력해주세요.'
-            required
-          />
-          <ButtonGroup>
-            <Button type="submit">회원가입 하기</Button>
-          </ButtonGroup>
-        </form>
-        {error && <ErrorText>{error}</ErrorText>}
+        <label>Email</label>
+        <StyledInput
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='이메일을 입력해주세요.'
+        />
       </Box>
+      {
+        emailState
+          ?
+          <ErrorText>email 형식이 아닙니다</ErrorText>
+          :
+          <></>
+      }
+
+
+      <Box>
+        <label>Password</label>
+        <StyledInput
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder='비밀번호를 입력해주세요.'
+        />
+
+      </Box>
+      {
+        pwState
+          ?
+          <ErrorText>PW 문자, 특수문자, 숫자포함 8자리 이상</ErrorText>
+          :
+          <></>
+      }
+
+
+      <ButtonGroup>
+        <Button onClick={signup}>회원가입 하기</Button>
+      </ButtonGroup>
+
+
     </Wrap>
   );
 };
@@ -66,12 +120,15 @@ export default Signup;
 
 const Wrap = styled.div`
   display: flex;
+  align-items:center;
+
   color: aliceblue;
   flex-direction: column;
   padding: 5%;
   width: 100%;
   border: 1px solid black;
   gap: 10px;
+
 `;
 
 const Box = styled.div`
@@ -79,11 +136,13 @@ const Box = styled.div`
   justify-content: center;
   color: aliceblue;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   height: 10vh;
   min-height: 50px;
   border-bottom: 2px solid darkolivegreen;
   gap: 10px;
+
+  font-size:20px;
 `;
 
 const ButtonGroup = styled.div`
@@ -105,4 +164,9 @@ const Button = styled.button`
 const ErrorText = styled.p`
   color: red;
   text-align: center;
+  font-size:10px;
 `;
+
+const StyledInput = styled.input`
+  font-size:20px;
+`

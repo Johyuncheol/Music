@@ -105,9 +105,8 @@ export const Wrap = styled.div`
 
     color:aliceblue;
     flex-direction:column;
-    padding : 5%;
+    padding : 5% 0 5% 0;
     width:100%;
-    border:1px solid black;
     gap :40px;
     
 `

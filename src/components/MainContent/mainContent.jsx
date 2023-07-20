@@ -10,7 +10,7 @@ import { getPosts } from '../../api/posts';
 const MainContent = () => {
   const [top5Data, setTop5Data] = useState([]);
   const [params, setParams] = useState({
-    key: "AIzaSyD1uIjMP_xjMbgcWZaZGoKLUUI46Ip4K8w",
+    key: "AIzaSyDpo_zRizVg4Yvitzy31ODTzEuGu4lVjGk",
     part: "snippet",
     id: '', // 동적으로 추출된 ID를 할당하기 위해 초기값은 빈 문자열로 설정
     maxResults: 20,
@@ -127,11 +127,21 @@ export const Div = styled.div`
 `;
 
 export const Contents = styled.div`
+
   display: grid;
-  grid-template-columns: 48% 1% 48%;
+  
   grid-gap: 1vw;
-  background-color: #26282d;
   padding: 5%;
+
+  @media only screen and (min-width: 100px) {
+    grid-template-columns: 90%;
+  }
+
+  @media only screen and (min-width: 700px) {
+    grid-template-columns: 48% 1% 48%;
+}
+
+
   
 `;
 

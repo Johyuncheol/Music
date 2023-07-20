@@ -130,11 +130,11 @@ const Detail = () => {
         <Wrap>
             <DetailOption>
                 <StyledLink onClick={() => navigate(-1)}> {'<'} </StyledLink>
-{/*                 <StyledButton onClick={() => setPostState(!postState)}>{postState ? '완료' : '수정'}</StyledButton>
+                {/*                 <StyledButton onClick={() => setPostState(!postState)}>{postState ? '완료' : '수정'}</StyledButton>
  */}                {
-                    cID.userID==data.username 
-                    ? <StyledButton onClick={PostDel}>삭제하기</StyledButton>
-                    : <></>
+                    cID.userID == data.username
+                        ? <StyledButton onClick={PostDel}>삭제하기</StyledButton>
+                        : <></>
                 }
             </DetailOption>
 
@@ -154,8 +154,13 @@ export default Detail;
 
 export const CommentSection = styled.div`
     color:aliceblue;
+    @media only screen and (min-width: 100px) {
+        width:100%;
+  }
+
+  @media only screen and (min-width: 900px) {
     width:30%;
-    min-width:190px;
+}
    
 `
 
@@ -166,6 +171,14 @@ export const ContentSection = styled.div`
     color:aliceblue;
 
     margin-top:1%;
+
+    @media only screen and (min-width: 100px) {
+    flex-direction:column;
+  }
+
+  @media only screen and (min-width: 900px) {
+    flex-direction:row;
+}
 
 `
 
@@ -202,6 +215,8 @@ export const Box = styled.div`
 
     border-radius:10px;
     background-color:#303238;
+
+
     
 `
 
@@ -226,8 +241,16 @@ export const VideoSection = styled.div`
     background-color:#303238;
 
 
-    width:70%;
+
     height:500px;
+
+@media only screen and (min-width: 100px) {
+    width:100%;
+  }
+
+  @media only screen and (min-width: 900px) {
+    width:70%;
+}
   
     
 `

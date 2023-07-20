@@ -20,6 +20,7 @@ const ToUp = () => {
 export default ToUp;
 
 export const Box = styled.div`
+  background-color: #31343a;
 display:flex;
 
 top:80%;
