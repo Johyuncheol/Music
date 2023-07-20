@@ -44,12 +44,12 @@ const Signup = () => {
       return -1;
     }
 
-    const { id, password } = formRef.current;
+
 
     try {
       const response = await axios.post('/api/users/signup', {
-        username: id.value,
-        password: password.value,
+        username: email,
+        password: password,
       });
 
       if (response.status === 200) {
@@ -61,8 +61,8 @@ const Signup = () => {
       setError('서버 통신 실패');
       console.error(error);
       alert(error.response.data.message)
-      id.value = '';
-      password.value = '';
+      email = '';
+      password = '';
     }
   };
 
